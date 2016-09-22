@@ -4,4 +4,7 @@ build:
 configure:
 	glide install
 
-.PHONY: build configure
+fmt:
+	go fmt
+
+.PHONY: build configure fmt

@@ -8,19 +8,29 @@ import "strings"
 import "bytes"
 
 func main() {
+	args := os.Args[1:]
+	if len(args) <= 0 {
+		fmt.Println("Provide name of the playbook as first argument")
+		return
+	}
+
+	roleName := args[0]
+
 	path, err := ansibleConfigPath()
 	if err != nil {
 		fmt.Println("Cannot find Ansible configuration file")
+		return
 	}
 
 	rolesPath, err := readRolesPath(path)
 	if err != nil {
 		fmt.Println(err)
+		return
 	}
 
 	fmt.Println("Roles path is:", rolesPath)
 
-	createPlaybookStructure(rolesPath, "my-playbook")
+	createPlaybookStructure(rolesPath, roleName)
 }
 
 func ansibleConfigPath() (path string, err error) {
@@ -87,20 +97,17 @@ func createPlaybookStructure(rolesPath string, name string) {
 	}
 
 	playbookPath := concat(rolesPath, name)
-	fmt.Println(playbookPath)
+
 	if string(playbookPath[len(playbookPath)-1]) != "/" {
 		playbookPath = concat(playbookPath, "/")
 	}
-	fmt.Println(playbookPath)
 
 	for _, folder := range folders {
 		folderPath := concat(playbookPath, folder)
-		fmt.Println(folderPath)
 		os.MkdirAll(folderPath, 0755)
 
 		if folder != "files" && folder != "templates" {
-			filePath := concat(folderPath, "/main.yml")
-			fmt.Println(filePath)
+			filePath := concat(folderPath, "/main.")
 			os.Create(filePath)
 		}
 	}
