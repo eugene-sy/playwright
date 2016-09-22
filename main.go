@@ -19,6 +19,8 @@ func main() {
 	}
 
 	fmt.Println("Roles path is:", rolesPath)
+
+	createPlaybookStructure(rolesPath, "my-playbook")
 }
 
 func ansibleConfigPath() (path string, err error) {
@@ -51,9 +53,7 @@ func readRolesPath(path string) (rolesPath string, err error) {
 	defer file.Close()
 
 	parts := strings.SplitAfter(path, "/")
-	fmt.Println(parts)
 	prefix := strings.Join(parts[:len(parts)-1], "")
-	fmt.Println(prefix)
 
 	scanner := bufio.NewScanner(file)
 
@@ -77,4 +77,31 @@ func concat(prefix string, suffix string) string {
 	buffer.WriteString(prefix)
 	buffer.WriteString(suffix)
 	return buffer.String()
+}
+
+func createPlaybookStructure(rolesPath string, name string) {
+	folders := [...]string{"tasks", "handlers", "templates", "files", "vars", "defaults", "meta"}
+
+	if string(rolesPath[len(rolesPath)-1]) != "/" {
+		rolesPath = concat(rolesPath, "/")
+	}
+
+	playbookPath := concat(rolesPath, name)
+	fmt.Println(playbookPath)
+	if string(playbookPath[len(playbookPath)-1]) != "/" {
+		playbookPath = concat(playbookPath, "/")
+	}
+	fmt.Println(playbookPath)
+
+	for _, folder := range folders {
+		folderPath := concat(playbookPath, folder)
+		fmt.Println(folderPath)
+		os.MkdirAll(folderPath, 0755)
+
+		if folder != "files" && folder != "templates" {
+			filePath := concat(folderPath, "/main.yml")
+			fmt.Println(filePath)
+			os.Create(filePath)
+		}
+	}
 }
