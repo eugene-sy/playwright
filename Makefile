@@ -1,4 +1,4 @@
-build:
+build: configure
 	go build -o playwright main.go
 
 configure:
