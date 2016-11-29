@@ -2,3 +2,5 @@ package: com.github/axblade/playwright
 import:
 - package: gopkg.in/alecthomas/kingpin.v2
   version: ^2.2.3
+- package: github.com/alecthomas/template
+- package: github.com/alecthomas/units
