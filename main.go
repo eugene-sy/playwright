@@ -7,9 +7,27 @@ import (
 	"fmt"
 	"os"
 	"strings"
+
+	"gopkg.in/alecthomas/kingpin.v2"
+)
+
+var (
+	// Commands and args
+	createCmd = kingpin.Command("create", "Creates a playbook").Default()
+	name = createCmd.Arg("name", "Name for playbook").Required().String()
+	// Folder flags
+	withHandlers = kingpin.Flag("handlers", "Add 'handlers' folder").Bool()
+	withTemplates = kingpin.Flag("templates", "Add 'templates' folder").Bool()
+	withFiles = kingpin.Flag("files", "Add 'files' folder").Bool()
+	withVars = kingpin.Flag("vars", "Add 'vars' folder").Bool()
+	withDefaults = kingpin.Flag("defaults", "Add 'defaults' folder").Bool()
+	withMets = kingpin.Flag("meta", "Add 'meta' folder").Bool()
 )
 
 func main() {
+	kingpin.Version("0.0.2")
+	kingpin.Parse()
+
 	args := os.Args[1:]
 	if len(args) <= 0 {
 		fmt.Println("Provide name of the playbook as first argument")
