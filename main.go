@@ -26,7 +26,14 @@ var (
 
 func main() {
 	kingpin.Version("0.0.2")
-	kingpin.Parse()
+	parsed := kingpin.Parse()
+
+	switch parsed {
+	case "create":
+		fmt.Printf("create called\n");
+	default:
+		fmt.Errorf("nothing called\n");
+	}
 
 	args := os.Args[1:]
 	if len(args) <= 0 {
