@@ -9,6 +9,8 @@ import (
 	"strings"
 
 	"gopkg.in/alecthomas/kingpin.v2"
+
+	"com.github/axblade/playwright/commands"
 )
 
 var (
@@ -21,7 +23,7 @@ var (
 	withFiles = kingpin.Flag("files", "Add 'files' folder").Bool()
 	withVars = kingpin.Flag("vars", "Add 'vars' folder").Bool()
 	withDefaults = kingpin.Flag("defaults", "Add 'defaults' folder").Bool()
-	withMets = kingpin.Flag("meta", "Add 'meta' folder").Bool()
+	withMeta = kingpin.Flag("meta", "Add 'meta' folder").Bool()
 )
 
 func main() {
@@ -31,6 +33,8 @@ func main() {
 	switch parsed {
 	case "create":
 		fmt.Printf("create called\n");
+		cmd := &commands.CreateCommand{ commands.Command{*name, *withHandlers, *withTemplates, *withFiles, *withVars, *withDefaults, *withMeta} }
+		cmd.Execute()
 	default:
 		fmt.Errorf("nothing called\n");
 	}
