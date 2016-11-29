@@ -1,4 +1,6 @@
-hash: 81342385a5cb0738a6700649d37bba42babbfd84371740670d11b2c270c3ec42
-updated: 2016-10-13T14:38:13.951468705+03:00
-imports: []
+hash: bd24bc304a029ce4206142b20cf2d8c1ec27d73354882ee2f61a453c396954bd
+updated: 2016-11-29T12:23:57.87716334+03:00
+imports:
+- name: gopkg.in/alecthomas/kingpin.v2
+  version: e9044be3ab2a8e11d4e1f418d12f0790d57e8d70
 testImports: []
