@@ -1,11 +1,13 @@
 package main
 
-import "fmt"
-import "os"
-import "errors"
-import "bufio"
-import "strings"
-import "bytes"
+import (
+	"bufio"
+	"bytes"
+	"errors"
+	"fmt"
+	"os"
+	"strings"
+)
 
 func main() {
 	args := os.Args[1:]
