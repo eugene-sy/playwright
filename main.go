@@ -93,9 +93,7 @@ func selectFolders(args []string) []string {
 	return result
 }
 
-func checkKey(key string, expected string) bool {
-	return strings.Contains(key, expected)
-}
+
 
 func ansibleConfigPath() (path string, err error) {
 	envPath := os.Getenv("ANSIBLE_CONFIG")
@@ -146,12 +144,6 @@ func readRolesPath(path string) (rolesPath string, err error) {
 	return concat(prefix, "roles"), nil
 }
 
-func concat(prefix string, suffix string) string {
-	var buffer bytes.Buffer
-	buffer.WriteString(prefix)
-	buffer.WriteString(suffix)
-	return buffer.String()
-}
 
 func createPlaybookStructure(rolesPath string, name string, folders []string) {
 	if string(rolesPath[len(rolesPath)-1]) != "/" {
