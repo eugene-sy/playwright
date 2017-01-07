@@ -1,13 +1,21 @@
+GO_PATH=/tmp/go
+BUILD_ROOT_PATH=$(GO_PATH)/src/com.github/axblade
+BUILD_PATH=$(BUILD_ROOT_PATH)/playwright
+REPO_PATH=$(CURDIR)
+
 build: configure
-	go build -o playwright main.go
+	cd $(BUILD_PATH) && go build -o playwright main.go
 
 configure:
-	glide install
+	rm -r $(BUILD_ROOT_PATH) || true
+	mkdir -p $(BUILD_ROOT_PATH)
+	ln -s $(REPO_PATH) $(BUILD_PATH) || true
+	cd $(BUILD_PATH) && glide install
 
 fmt:
-	go fmt
+	cd $(BUILD_PATH) && go fmt
 
 install: build
 	cp playwright /usr/local/bin/playwright
 
-.PHONY: build configure fmt
+.PHONY: build configure fmt install
