@@ -1,8 +1,6 @@
 package commands
 
 import (
-	"fmt"
-	"strings"
 	"os"
 
 	"com.github/axblade/playwright/utils"
@@ -20,7 +18,7 @@ func (self *DeleteCommand) Execute() (err error) {
 		return err
 	}
 
-	deletePlaybookStructure(rolesPath, self.Command.Name, folders)
+	deletePlaybookStructure(rolesPath, self.Command.PlaybookName, folders)
 
 	return nil
 }
@@ -40,5 +38,7 @@ func deletePlaybookStructure(rolesPath string, name string, folders []string) {
 
 	for _, folder := range folders {
 		folderPath := utils.Concat(playbookPath, folder)
+
+		os.RemoveAll(folderPath)
 	}
 }

@@ -1,12 +1,7 @@
 package main
 
 import (
-	"bufio"
-	"bytes"
-	"errors"
 	"fmt"
-	"os"
-	"strings"
 
 	"gopkg.in/alecthomas/kingpin.v2"
 
@@ -18,9 +13,9 @@ var (
 	createCmd = kingpin.Command("create", "Creates a playbook").Default()
 	createName = createCmd.Arg("name", "Name for playbook").Required().String()
 	updateCmd = kingpin.Command("update", "Updates a playbook")
-	updateName = createCmd.Arg("name", "Name for playbook").Required().String()
+	updateName = updateCmd.Arg("name", "Name for playbook").Required().String()
 	deleteCmd = kingpin.Command("delete", "Deletes a playbook or parts of it")
-	deleteName = createCmd.Arg("name", "Name for playbook").Required().String()
+	deleteName = deleteCmd.Arg("name", "Name for playbook").Required().String()
 	// Folder flags
 	withHandlers = kingpin.Flag("handlers", "Add 'handlers' folder").Bool()
 	withTemplates = kingpin.Flag("templates", "Add 'templates' folder").Bool()
@@ -44,6 +39,7 @@ func main() {
 		cmd.Execute()
 	case "delete":
 		cmd := &commands.DeleteCommand{ commands.Command{*deleteName, *withHandlers, *withTemplates, *withFiles, *withVars, *withDefaults, *withMeta, *all} }
+		cmd.Execute()
 	default:
 		fmt.Errorf("nothing called\n");
 	}

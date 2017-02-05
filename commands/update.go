@@ -1,8 +1,6 @@
 package commands
 
 import (
-	"fmt"
-	"strings"
 	"os"
 
 	"com.github/axblade/playwright/utils"
@@ -20,7 +18,7 @@ func (self *UpdateCommand) Execute() (err error) {
 		return err
 	}
 
-	updatePlaybookStructure(rolesPath, self.Command.Name, folders)
+	updatePlaybookStructure(rolesPath, self.Command.PlaybookName, folders)
 
 	return nil
 }
@@ -48,4 +46,6 @@ func updatePlaybookStructure(rolesPath string, name string, folders []string) (e
 			os.Create(filePath)
 		}
 	}
+
+	return nil
 }

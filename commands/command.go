@@ -1,7 +1,10 @@
 package commands
 
 import (
+	"bufio"
 	"os"
+	"errors"
+	"strings"
 
 	"com.github/axblade/playwright/utils"
 )
@@ -49,7 +52,7 @@ func (self *Command) SelectFolders() []string {
 func (self *Command) ReadRolesPath() (rolesPath string, err error) {
 	path, err := self.AnsibleConfigPath()
 	if err != nil {
-		return "", error.New("Cannot find Ansible configuration file")
+		return "", errors.New("Cannot find Ansible configuration file")
 	}
 
 	file, err := os.Open(path)
