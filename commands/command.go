@@ -14,6 +14,7 @@ type Command struct {
 	WithVars bool
 	WithDefaults bool
 	WithMeta bool
+	All bool
 }
 
 type ICommand interface {
