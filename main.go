@@ -32,8 +32,10 @@ func main() {
 
 	switch parsed {
 	case "create":
-		fmt.Printf("create called\n");
 		cmd := &commands.CreateCommand{ commands.Command{*name, *withHandlers, *withTemplates, *withFiles, *withVars, *withDefaults, *withMeta} }
+		cmd.Execute()
+	case "update":
+		cmd := &commands.UpdateCommand{ commands.Update{*name, *withHandlers, *withTemplates, *withFiles, *withVars, *withDefaults, *withMeta} }
 		cmd.Execute()
 	default:
 		fmt.Errorf("nothing called\n");

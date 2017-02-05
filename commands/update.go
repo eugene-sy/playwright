@@ -8,11 +8,11 @@ import (
 	"com.github/axblade/playwright/utils"
 )
 
-type CreateCommand struct {
+type UpdateCommand struct {
 	Command
 }
 
-func (self *CreateCommand) Execute() (err error) {
+func (self *UpdateCommand) Execute() (err error) {
 	folders := self.SelectFolders()
 
 	rolesPath, err := self.ReadRolesPath()
@@ -20,17 +20,17 @@ func (self *CreateCommand) Execute() (err error) {
 		return err
 	}
 
-	createPlaybookStructure(rolesPath, self.Command.Name, folders)
+	updatePlaybookStructure(rolesPath, self.Command.Name, folders)
 
 	return nil
 }
 
-func createPlaybookStructure(rolesPath string, name string, folders []string) {
+func updatePlaybookStructure(rolesPath string, name string, folders []string) (err error) {
 	if string(rolesPath[len(rolesPath)-1]) != "/" {
 		rolesPath = utils.Concat(rolesPath, "/")
 	}
 
-	// ToDo: throw erorr is playbook exists
+	// ToDo: check if role exists
 
 	playbookPath := utils.Concat(rolesPath, name)
 
@@ -40,6 +40,7 @@ func createPlaybookStructure(rolesPath string, name string, folders []string) {
 
 	for _, folder := range folders {
 		folderPath := utils.Concat(playbookPath, folder)
+		// ToDo: check if folder exists, otehrwise throw error
 		os.MkdirAll(folderPath, 0755)
 
 		if folder != "files" && folder != "templates" {
