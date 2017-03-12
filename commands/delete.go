@@ -38,11 +38,7 @@ func deletePlaybookStructure(rolesPath string, name string, folders []string) (e
 		playbookPath = utils.Concat(playbookPath, "/")
 	}
 
-	for _, folder := range folders {
-		folderPath := utils.Concat(playbookPath, folder)
-
-		os.RemoveAll(folderPath)
-	}
+	os.RemoveAll(playbookPath)
 
 	return nil
 }

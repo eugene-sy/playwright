@@ -71,8 +71,6 @@ func (self *Command) ReadRolesPath() (rolesPath string, err error) {
 			option := scanner.Text()
 			rolesPath = strings.TrimSpace(strings.Split(option, "=")[1])
 			return utils.Concat(prefix, rolesPath), nil
-		} else {
-			return "", errors.New("Cannot read data from Ansible configuration file")
 		}
 	}
 
