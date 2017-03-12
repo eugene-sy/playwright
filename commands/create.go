@@ -2,6 +2,8 @@ package commands
 
 import (
 	"os"
+	"errors"
+	"fmt"
 
 	"com.github/axblade/playwright/utils"
 )
@@ -18,19 +20,20 @@ func (self *CreateCommand) Execute() (err error) {
 		return err
 	}
 
-	createPlaybookStructure(rolesPath, self.Command.PlaybookName, folders)
-
-	return nil
+	return createPlaybookStructure(rolesPath, self.Command.PlaybookName, folders)
 }
 
-func createPlaybookStructure(rolesPath string, name string, folders []string) {
+func createPlaybookStructure(rolesPath string, name string, folders []string) (err error) {
 	if string(rolesPath[len(rolesPath)-1]) != "/" {
 		rolesPath = utils.Concat(rolesPath, "/")
 	}
 
-	// ToDo: throw erorr is playbook exists
-
 	playbookPath := utils.Concat(rolesPath, name)
+
+
+	if utils.FolderExists(playbookPath) {
+		return errors.New(fmt.Sprintf("Role %s already exists", name))
+	}
 
 	if string(playbookPath[len(playbookPath)-1]) != "/" {
 		playbookPath = utils.Concat(playbookPath, "/")
@@ -45,4 +48,6 @@ func createPlaybookStructure(rolesPath string, name string, folders []string) {
 			os.Create(filePath)
 		}
 	}
+
+	return nil
 }

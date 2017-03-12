@@ -2,6 +2,8 @@ package commands
 
 import (
 	"os"
+	"errors"
+	"fmt"
 
 	"com.github/axblade/playwright/utils"
 )
@@ -18,19 +20,19 @@ func (self *DeleteCommand) Execute() (err error) {
 		return err
 	}
 
-	deletePlaybookStructure(rolesPath, self.Command.PlaybookName, folders)
-
-	return nil
+	return deletePlaybookStructure(rolesPath, self.Command.PlaybookName, folders)
 }
 
-func deletePlaybookStructure(rolesPath string, name string, folders []string) {
+func deletePlaybookStructure(rolesPath string, name string, folders []string) (err error) {
 	if string(rolesPath[len(rolesPath)-1]) != "/" {
 		rolesPath = utils.Concat(rolesPath, "/")
 	}
 
-	// ToDo: throw erorr is playbook exists
-
 	playbookPath := utils.Concat(rolesPath, name)
+
+	if !utils.FolderExists(playbookPath) {
+		return errors.New(fmt.Sprintf("Role %s does not exist", name))
+	}
 
 	if string(playbookPath[len(playbookPath)-1]) != "/" {
 		playbookPath = utils.Concat(playbookPath, "/")
@@ -41,4 +43,6 @@ func deletePlaybookStructure(rolesPath string, name string, folders []string) {
 
 		os.RemoveAll(folderPath)
 	}
+
+	return nil
 }
