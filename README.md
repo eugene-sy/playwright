@@ -1,6 +1,6 @@
 # Playwright
 
-Simple utility that creates Ansible playbook folder structure for you.
+Simple utility that helps you manage Ansible roles folder structure.
 
 ## How to use it
 
