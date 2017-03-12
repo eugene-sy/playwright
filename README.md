@@ -4,34 +4,49 @@ Simple utility that creates Ansible playbook folder structure for you.
 
 ## How to use it
 
-1. You need to set up path to your `ansible.cfg` file.
+You need to set up path to your `ansible.cfg` file.
 By default playwright will expect to find it in:
 - `ANSIBLE_CONFIG` environemnt variable
 - in the current directory by name `ansible.cfg` or `.ansible.cfg`
 - in your system config folder `/etc/ansible/ansible.cfg`
 
-2. You need to set up path to the roles folder in your `ansible.cfg`:
+You need to set up path to the roles folder in your `ansible.cfg`:
 
 ```
 roles_path=/somewhere/in/my/system
 ```
 
-3. Now you can call playwright to build folder structure:
+Now you can call playwright to build folder structure:
 
 ```
-playwright my_awesome_playbook --with-handlers --with-templates --with-files --with-vars --with-defaults --with-meta
+playwright [<flags>] <command> [<args> ...]
+
+Flags:
+  --help       Show context-sensitive help (also try --help-long and --help-man).
+  --handlers   Add 'handlers' folder
+  --templates  Add 'templates' folder
+  --files      Add 'files' folder
+  --vars       Add 'vars' folder
+  --defaults   Add 'defaults' folder
+  --meta       Add 'meta' folder
+  --all        Apply action to all folders
+  --version    Show application version.
+
+Commands:
+  help [<command>...]
+	Show help.
+
+  create <name>
+	Creates a playbook
+
+  update <name>
+	Updates a playbook
+
+  delete <name>
+	Deletes a playbook
 ```
 
 By default playwright creates only `tasks` folder and `main.yml` in it.
-
-Flags starting with `--with` add named folders to the final structure
-
-- `--with-handlers` - handlers folder and `main.yml` in it
-- `--with-templates` - empty templates folder
-- `--with-files` - empty files folder
-- `--with-vars` - vars folder and `main.yml` in it
-- `--with-defaults` - defaults folder and `main.yml` in it
-- `--with-meta` - meta folder and `main.yml` in it
 
 ## Building and installing
 
