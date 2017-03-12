@@ -10,12 +10,12 @@ import (
 
 var (
 	// Commands and args
-	createCmd  = kingpin.Command("create", "Creates a playbook")
-	createName = createCmd.Arg("name", "Name for playbook").Required().String()
-	updateCmd  = kingpin.Command("update", "Updates a playbook")
-	updateName = updateCmd.Arg("name", "Name for playbook").Required().String()
-	deleteCmd  = kingpin.Command("delete", "Deletes a playbook or parts of it")
-	deleteName = deleteCmd.Arg("name", "Name for playbook").Required().String()
+	createCmd  = kingpin.Command("create", "Creates roles")
+	createName = createCmd.Arg("name", "Name for role").Required().String()
+	updateCmd  = kingpin.Command("update", "Updates roles")
+	updateName = updateCmd.Arg("name", "Name for role").Required().String()
+	deleteCmd  = kingpin.Command("delete", "Deletes roles")
+	deleteName = deleteCmd.Arg("name", "Name for role").Required().String()
 	// Folder flags
 	withHandlers  = kingpin.Flag("handlers", "Add 'handlers' folder").Bool()
 	withTemplates = kingpin.Flag("templates", "Add 'templates' folder").Bool()
