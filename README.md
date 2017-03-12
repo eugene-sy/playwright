@@ -57,4 +57,4 @@ make build
 ## License
 
 This software is built and distributed under GPLv3 license (Ansible uses this license).
-For more information check `LICENSE` file in the root folder of the repository.
+For more information check `LICENSE.md` file in the root folder of the repository.
