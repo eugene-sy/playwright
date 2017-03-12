@@ -56,5 +56,5 @@ make build
 
 ## License
 
-This software is built and distributed under MIT license.
+This software is built and distributed under GPLv3 license (Ansible uses this license).
 For more information check `LICENSE` file in the root folder of the repository.
