@@ -3,7 +3,7 @@ BUILD_ROOT_PATH=$(GO_PATH)/src/com.github/axblade
 BUILD_PATH=$(BUILD_ROOT_PATH)/playwright
 REPO_PATH=$(CURDIR)
 
-build: configure
+build:
 	cd $(BUILD_PATH) && go build -o playwright main.go
 
 configure:
