@@ -1,7 +1,6 @@
 package commands
 
 import (
-	"errors"
 	"fmt"
 	"os"
 
@@ -31,7 +30,7 @@ func createPlaybookStructure(rolesPath string, name string, folders []string) (e
 	playbookPath := utils.Concat(rolesPath, name)
 
 	if utils.FolderExists(playbookPath) {
-		return errors.New(fmt.Sprintf("Role %s already exists", name))
+		return fmt.Errorf("Role %s already exists", name)
 	}
 
 	if string(playbookPath[len(playbookPath)-1]) != "/" {

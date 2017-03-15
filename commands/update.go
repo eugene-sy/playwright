@@ -1,7 +1,6 @@
 package commands
 
 import (
-	"errors"
 	"fmt"
 	"os"
 
@@ -32,7 +31,7 @@ func updatePlaybookStructure(rolesPath string, name string, folders []string) (e
 	playbookPath := utils.Concat(rolesPath, name)
 
 	if !utils.FolderExists(playbookPath) {
-		return errors.New(fmt.Sprintf("Role %s does not exists", name))
+		return fmt.Errorf("Role %s does not exists", name)
 	}
 
 	if string(playbookPath[len(playbookPath)-1]) != "/" {
@@ -44,7 +43,7 @@ func updatePlaybookStructure(rolesPath string, name string, folders []string) (e
 			folderPath := utils.Concat(playbookPath, folder)
 
 			if utils.FolderExists(folderPath) {
-				return errors.New(fmt.Sprintf("Folder %s already exists for role %s", folder, name))
+				return fmt.Errorf("Folder %s already exists for role %s", folder, name)
 			}
 
 			os.MkdirAll(folderPath, 0755)
