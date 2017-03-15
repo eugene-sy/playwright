@@ -12,15 +12,15 @@ type DeleteCommand struct {
 	Command
 }
 
-func (self *DeleteCommand) Execute() (err error) {
-	folders := self.SelectFolders()
+func (command *DeleteCommand) Execute() (err error) {
+	folders := command.SelectFolders()
 
-	rolesPath, err := self.ReadRolesPath()
+	rolesPath, err := command.ReadRolesPath()
 	if err != nil {
 		return err
 	}
 
-	return deletePlaybookStructure(rolesPath, self.Command.PlaybookName, folders)
+	return deletePlaybookStructure(rolesPath, command.Command.PlaybookName, folders)
 }
 
 func deletePlaybookStructure(rolesPath string, name string, folders []string) (err error) {

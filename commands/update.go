@@ -12,16 +12,16 @@ type UpdateCommand struct {
 	Command
 }
 
-func (self *UpdateCommand) Execute() (err error) {
-	folders := self.SelectFolders()
+func (command *UpdateCommand) Execute() (err error) {
+	folders := command.SelectFolders()
 
-	rolesPath, err := self.ReadRolesPath()
+	rolesPath, err := command.ReadRolesPath()
 
 	if err != nil {
 		return err
 	}
 
-	return updatePlaybookStructure(rolesPath, self.Command.PlaybookName, folders)
+	return updatePlaybookStructure(rolesPath, command.Command.PlaybookName, folders)
 }
 
 func updatePlaybookStructure(rolesPath string, name string, folders []string) (err error) {

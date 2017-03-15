@@ -12,15 +12,15 @@ type CreateCommand struct {
 	Command
 }
 
-func (self *CreateCommand) Execute() (err error) {
-	folders := self.SelectFolders()
+func (command *CreateCommand) Execute() (err error) {
+	folders := command.SelectFolders()
 
-	rolesPath, err := self.ReadRolesPath()
+	rolesPath, err := command.ReadRolesPath()
 	if err != nil {
 		return err
 	}
 
-	return createPlaybookStructure(rolesPath, self.Command.PlaybookName, folders)
+	return createPlaybookStructure(rolesPath, command.Command.PlaybookName, folders)
 }
 
 func createPlaybookStructure(rolesPath string, name string, folders []string) (err error) {
