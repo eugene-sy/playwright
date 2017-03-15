@@ -2,22 +2,22 @@ package commands
 
 import (
 	"bufio"
-	"os"
 	"errors"
+	"os"
 	"strings"
 
 	"com.github/axblade/playwright/utils"
 )
 
 type Command struct {
-	PlaybookName string
-	WithHandlers bool
+	PlaybookName  string
+	WithHandlers  bool
 	WithTemplates bool
-	WithFiles bool
-	WithVars bool
-	WithDefaults bool
-	WithMeta bool
-	All bool
+	WithFiles     bool
+	WithVars      bool
+	WithDefaults  bool
+	WithMeta      bool
+	All           bool
 }
 
 type ICommand interface {

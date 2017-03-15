@@ -14,6 +14,8 @@ configure:
 
 fmt:
 	cd $(BUILD_PATH) && go fmt
+	cd $(BUILD_PATH)/commands && go fmt
+	cd $(BUILD_PATH)/utils && go fmt
 
 install: build
 	cp playwright /usr/local/bin/playwright

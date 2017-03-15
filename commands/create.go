@@ -1,9 +1,9 @@
 package commands
 
 import (
-	"os"
 	"errors"
 	"fmt"
+	"os"
 
 	"com.github/axblade/playwright/utils"
 )
@@ -29,7 +29,6 @@ func createPlaybookStructure(rolesPath string, name string, folders []string) (e
 	}
 
 	playbookPath := utils.Concat(rolesPath, name)
-
 
 	if utils.FolderExists(playbookPath) {
 		return errors.New(fmt.Sprintf("Role %s already exists", name))

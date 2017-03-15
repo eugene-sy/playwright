@@ -1,9 +1,9 @@
 package commands
 
 import (
-	"os"
 	"errors"
 	"fmt"
+	"os"
 
 	"com.github/axblade/playwright/utils"
 )
