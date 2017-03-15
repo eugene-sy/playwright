@@ -1,27 +1,26 @@
 package commands
 
 import (
-	"os"
-	"errors"
 	"fmt"
+	"os"
 
-	"com.github/axblade/playwright/utils"
+	"github.com/Axblade/playwright/utils"
 )
 
 type UpdateCommand struct {
 	Command
 }
 
-func (self *UpdateCommand) Execute() (err error) {
-	folders := self.SelectFolders()
+func (command *UpdateCommand) Execute() (err error) {
+	folders := command.SelectFolders()
 
-	rolesPath, err := self.ReadRolesPath()
+	rolesPath, err := command.ReadRolesPath()
 
 	if err != nil {
 		return err
 	}
 
-	return updatePlaybookStructure(rolesPath, self.Command.PlaybookName, folders)
+	return updatePlaybookStructure(rolesPath, command.Command.PlaybookName, folders)
 }
 
 func updatePlaybookStructure(rolesPath string, name string, folders []string) (err error) {
@@ -32,7 +31,7 @@ func updatePlaybookStructure(rolesPath string, name string, folders []string) (e
 	playbookPath := utils.Concat(rolesPath, name)
 
 	if !utils.FolderExists(playbookPath) {
-		return errors.New(fmt.Sprintf("Role %s does not exists", name))
+		return fmt.Errorf("Role %s does not exists", name)
 	}
 
 	if string(playbookPath[len(playbookPath)-1]) != "/" {
@@ -44,7 +43,7 @@ func updatePlaybookStructure(rolesPath string, name string, folders []string) (e
 			folderPath := utils.Concat(playbookPath, folder)
 
 			if utils.FolderExists(folderPath) {
-				return errors.New(fmt.Sprintf("Folder %s already exists for role %s", folder, name))
+				return fmt.Errorf("Folder %s already exists for role %s", folder, name)
 			}
 
 			os.MkdirAll(folderPath, 0755)

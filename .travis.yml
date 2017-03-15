@@ -1,0 +1,12 @@
+language: go
+
+go:
+  - 1.7
+
+install:
+  - go get gopkg.in/alecthomas/kingpin.v2
+  - go get github.com/alecthomas/template
+  - go get github.com/alecthomas/units
+
+script:
+  - go build -o playwright main.go

@@ -5,7 +5,7 @@ import (
 
 	"gopkg.in/alecthomas/kingpin.v2"
 
-	"com.github/axblade/playwright/commands"
+	"github.com/Axblade/playwright/commands"
 )
 
 var (
@@ -43,7 +43,7 @@ func main() {
 		cmd := &commands.DeleteCommand{commands.Command{*deleteName, *withHandlers, *withTemplates, *withFiles, *withVars, *withDefaults, *withMeta, *all}}
 		err = cmd.Execute()
 	default:
-		fmt.Errorf("nothing called\n")
+		err = fmt.Errorf("Nothing was called, check --help command.\n")
 	}
 
 	if err == nil {

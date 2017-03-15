@@ -2,55 +2,55 @@ package commands
 
 import (
 	"bufio"
-	"os"
 	"errors"
+	"os"
 	"strings"
 
-	"com.github/axblade/playwright/utils"
+	"github.com/Axblade/playwright/utils"
 )
 
 type Command struct {
-	PlaybookName string
-	WithHandlers bool
+	PlaybookName  string
+	WithHandlers  bool
 	WithTemplates bool
-	WithFiles bool
-	WithVars bool
-	WithDefaults bool
-	WithMeta bool
-	All bool
+	WithFiles     bool
+	WithVars      bool
+	WithDefaults  bool
+	WithMeta      bool
+	All           bool
 }
 
 type ICommand interface {
 	Execute() (err error)
 }
 
-func (self *Command) SelectFolders() []string {
+func (command *Command) SelectFolders() []string {
 	result := []string{"tasks"}
 
-	if self.WithHandlers {
+	if command.WithHandlers {
 		result = append(result, "handlers")
 	}
-	if self.WithTemplates {
+	if command.WithTemplates {
 		result = append(result, "templates")
 	}
-	if self.WithFiles {
+	if command.WithFiles {
 		result = append(result, "files")
 	}
-	if self.WithVars {
+	if command.WithVars {
 		result = append(result, "vars")
 	}
-	if self.WithDefaults {
+	if command.WithDefaults {
 		result = append(result, "defaults")
 	}
-	if self.WithMeta {
+	if command.WithMeta {
 		result = append(result, "meta")
 	}
 
 	return result
 }
 
-func (self *Command) ReadRolesPath() (rolesPath string, err error) {
-	path, err := self.AnsibleConfigPath()
+func (command *Command) ReadRolesPath() (rolesPath string, err error) {
+	path, err := command.ansibleConfigPath()
 	if err != nil {
 		return "", errors.New("Cannot find Ansible configuration file")
 	}
@@ -81,7 +81,7 @@ func (self *Command) ReadRolesPath() (rolesPath string, err error) {
 	return utils.Concat(prefix, "roles"), nil
 }
 
-func (self *Command) AnsibleConfigPath() (path string, err error) {
+func (command *Command) ansibleConfigPath() (path string, err error) {
 	envPath := os.Getenv("ANSIBLE_CONFIG")
 
 	if envPath != "" {
