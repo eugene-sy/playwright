@@ -5,7 +5,7 @@ import (
 
 	"gopkg.in/alecthomas/kingpin.v2"
 
-	"com.github/axblade/playwright/commands"
+	"github.com/Axblade/playwright/commands"
 )
 
 var (

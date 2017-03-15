@@ -1,5 +1,5 @@
 GO_PATH=/tmp/go
-BUILD_ROOT_PATH=$(GO_PATH)/src/com.github/axblade
+BUILD_ROOT_PATH=$(GO_PATH)/src/github.com/axblade
 BUILD_PATH=$(BUILD_ROOT_PATH)/playwright
 REPO_PATH=$(CURDIR)
 

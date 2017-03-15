@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"com.github/axblade/playwright/utils"
+	"github.com/Axblade/playwright/utils"
 )
 
 type DeleteCommand struct {

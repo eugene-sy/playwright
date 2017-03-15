@@ -2,13 +2,9 @@ package utils
 
 import (
 	"bytes"
-	"strings"
 )
 
-func CheckKey(key string, expected string) bool {
-	return strings.Contains(key, expected)
-}
-
+// Concat - concatenates prefix and suffix strings, is used to build paths to files/roles
 func Concat(prefix string, suffix string) string {
 	var buffer bytes.Buffer
 	buffer.WriteString(prefix)

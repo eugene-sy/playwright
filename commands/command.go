@@ -6,7 +6,7 @@ import (
 	"os"
 	"strings"
 
-	"com.github/axblade/playwright/utils"
+	"github.com/Axblade/playwright/utils"
 )
 
 type Command struct {
