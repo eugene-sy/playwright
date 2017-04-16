@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"gopkg.in/alecthomas/kingpin.v2"
+	"github.com/fatih/color"
 
 	"github.com/Axblade/playwright/commands"
 )
@@ -47,7 +48,7 @@ func main() {
 	}
 
 	if err == nil {
-		fmt.Println("Command executed successfully")
+		color.Green("Command executed successfully")
 	} else {
 		fmt.Printf("Error: %s\n", err)
 	}
