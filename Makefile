@@ -17,6 +17,9 @@ fmt:
 	cd $(BUILD_PATH)/commands && go fmt
 	cd $(BUILD_PATH)/utils && go fmt
 
+install-native: build
+	cd $(BUILD_PATH) && go install
+
 install: build
 	cp playwright /usr/local/bin/playwright
 
