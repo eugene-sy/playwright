@@ -1,5 +1,5 @@
 GO_PATH=/tmp/go
-BUILD_ROOT_PATH=$(GO_PATH)/src/github.com/axblade
+BUILD_ROOT_PATH=$(GO_PATH)/src/github.com/Axblade
 BUILD_PATH=$(BUILD_ROOT_PATH)/playwright
 REPO_PATH=$(CURDIR)
 
@@ -16,6 +16,10 @@ fmt:
 	cd $(BUILD_PATH) && go fmt
 	cd $(BUILD_PATH)/commands && go fmt
 	cd $(BUILD_PATH)/utils && go fmt
+	cd $(BUILD_PATH)/log && go fmt
+
+install-native: build
+	cd $(BUILD_PATH) && go install
 
 install: build
 	cp playwright /usr/local/bin/playwright

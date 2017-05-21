@@ -21,7 +21,7 @@ type Command struct {
 }
 
 type ICommand interface {
-	Execute() (err error)
+	Execute() (success string, err error)
 }
 
 func (command *Command) SelectFolders() []string {

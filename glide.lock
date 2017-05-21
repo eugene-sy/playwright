@@ -1,5 +1,5 @@
-hash: 2cedc4171247f69576d022aaa19b58cc2d46648687378418c8e3157a5d6b31e7
-updated: 2016-11-29T12:34:40.821743641+03:00
+hash: d95bd3c006f713c128ac87debc4e67192b9252e2f704adac4c94b28f80d7435f
+updated: 2017-04-16T16:43:34.368534592+03:00
 imports:
 - name: github.com/alecthomas/template
   version: a0175ee3bccc567396460bf5acd36800cb10c49c
@@ -7,6 +7,13 @@ imports:
   - parse
 - name: github.com/alecthomas/units
   version: 2efee857e7cfd4f3d0138cc3cbb1b4966962b93a
+- name: github.com/Axblade/playwright
+  version: 78d561951c69d7f0ea8938cc80c4187abd7c71bd
+  subpackages:
+  - commands
+  - utils
+- name: github.com/fatih/color
+  version: 9131ab34cf20d2f6d83fdc67168a5430d1c7dc23
 - name: gopkg.in/alecthomas/kingpin.v2
-  version: e9044be3ab2a8e11d4e1f418d12f0790d57e8d70
+  version: 7f0871f2e17818990e4eed73f9b5c2f429501228
 testImports: []

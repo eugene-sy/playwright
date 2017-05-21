@@ -6,6 +6,7 @@ import (
 	"gopkg.in/alecthomas/kingpin.v2"
 
 	"github.com/Axblade/playwright/commands"
+	"github.com/Axblade/playwright/log"
 )
 
 var (
@@ -31,24 +32,25 @@ func main() {
 	parsed := kingpin.Parse()
 
 	var err error
+	var success string
 
 	switch parsed {
 	case "create":
 		cmd := &commands.CreateCommand{commands.Command{*createName, *withHandlers, *withTemplates, *withFiles, *withVars, *withDefaults, *withMeta, *all}}
-		err = cmd.Execute()
+		success, err = cmd.Execute()
 	case "update":
 		cmd := &commands.UpdateCommand{commands.Command{*updateName, *withHandlers, *withTemplates, *withFiles, *withVars, *withDefaults, *withMeta, *all}}
-		err = cmd.Execute()
+		success, err = cmd.Execute()
 	case "delete":
 		cmd := &commands.DeleteCommand{commands.Command{*deleteName, *withHandlers, *withTemplates, *withFiles, *withVars, *withDefaults, *withMeta, *all}}
-		err = cmd.Execute()
+		success, err = cmd.Execute()
 	default:
 		err = fmt.Errorf("Nothing was called, check --help command.\n")
 	}
 
 	if err == nil {
-		fmt.Println("Command executed successfully")
+		log.LogSuccess(success)
 	} else {
-		fmt.Printf("Error: %s\n", err)
+		log.LogError("Error: %s\n", err)
 	}
 }
