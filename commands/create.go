@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/Axblade/playwright/utils"
 	"github.com/Axblade/playwright/log"
+	"github.com/Axblade/playwright/utils"
 )
 
 type CreateCommand struct {

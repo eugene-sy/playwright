@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/Axblade/playwright/log"
 	"github.com/Axblade/playwright/utils"
 )
 
@@ -54,7 +55,7 @@ func updatePlaybookStructure(rolesPath string, name string, folders []string) (s
 				os.Create(filePath)
 				log.LogSimple("Created main.yml for %s", folder)
 			} else {
-				log.LogSkip("Skipping creation of main.yml for %s", folder)
+				log.LogSkip("Skipped creation of main.yml for %s", folder)
 			}
 		}
 	}

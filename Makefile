@@ -16,6 +16,7 @@ fmt:
 	cd $(BUILD_PATH) && go fmt
 	cd $(BUILD_PATH)/commands && go fmt
 	cd $(BUILD_PATH)/utils && go fmt
+	cd $(BUILD_PATH)/log && go fmt
 
 install-native: build
 	cd $(BUILD_PATH) && go install
