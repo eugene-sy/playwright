@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/Axblade/playwright/utils"
+	"github.com/Axblade/playwright/log"
 )
 
 type CreateCommand struct {
@@ -40,10 +41,14 @@ func createPlaybookStructure(rolesPath string, name string, folders []string) (s
 	for _, folder := range folders {
 		folderPath := utils.Concat(playbookPath, folder)
 		os.MkdirAll(folderPath, 0755)
+		log.LogSimple("Created directory: %s", folder)
 
 		if folder != "files" && folder != "templates" {
 			filePath := utils.Concat(folderPath, "/main.yml")
 			os.Create(filePath)
+			log.LogSimple("Created main.yml for %s", folder)
+		} else {
+			log.LogSkip("Skipped creation of main.yml for %s", folder)
 		}
 	}
 

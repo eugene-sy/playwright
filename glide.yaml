@@ -1,4 +1,4 @@
-package: com.github/axblade/playwright
+package: com.github/Axblade/playwright
 import:
 - package: gopkg.in/alecthomas/kingpin.v2
   version: ^2.2.3

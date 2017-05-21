@@ -20,8 +20,7 @@ func (command *UpdateCommand) Execute() (success string, err error) {
 		return "", err
 	}
 
-	s1, s2 := updatePlaybookStructure(rolesPath, command.Command.PlaybookName, folders)
-	return s1, s2
+	return updatePlaybookStructure(rolesPath, command.Command.PlaybookName, folders)
 }
 
 func updatePlaybookStructure(rolesPath string, name string, folders []string) (success string, err error) {
@@ -48,10 +47,14 @@ func updatePlaybookStructure(rolesPath string, name string, folders []string) (s
 			}
 
 			os.MkdirAll(folderPath, 0755)
+			log.LogSimple("Created directory: %s", folder)
 
 			if folder != "files" && folder != "templates" {
 				filePath := utils.Concat(folderPath, "/main.yml")
 				os.Create(filePath)
+				log.LogSimple("Created main.yml for %s", folder)
+			} else {
+				log.LogSkip("Skipping creation of main.yml for %s", folder)
 			}
 		}
 	}
