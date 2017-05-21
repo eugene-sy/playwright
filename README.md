@@ -5,6 +5,8 @@
 
 Simple utility that helps you manage Ansible roles folder structure.
 
+## Why
+
 ## How to use it
 
 You need to set up path to your `ansible.cfg` file.
