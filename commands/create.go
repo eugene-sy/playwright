@@ -11,18 +11,18 @@ type CreateCommand struct {
 	Command
 }
 
-func (command *CreateCommand) Execute() (err error) {
+func (command *CreateCommand) Execute() (success string, err error) {
 	folders := command.SelectFolders()
 
 	rolesPath, err := command.ReadRolesPath()
 	if err != nil {
-		return err
+		return "", err
 	}
 
 	return createPlaybookStructure(rolesPath, command.Command.PlaybookName, folders)
 }
 
-func createPlaybookStructure(rolesPath string, name string, folders []string) (err error) {
+func createPlaybookStructure(rolesPath string, name string, folders []string) (success string, err error) {
 	if string(rolesPath[len(rolesPath)-1]) != "/" {
 		rolesPath = utils.Concat(rolesPath, "/")
 	}
@@ -30,7 +30,7 @@ func createPlaybookStructure(rolesPath string, name string, folders []string) (e
 	playbookPath := utils.Concat(rolesPath, name)
 
 	if utils.FolderExists(playbookPath) {
-		return fmt.Errorf("Role %s already exists", name)
+		return "", fmt.Errorf("Role %s already exists", name)
 	}
 
 	if string(playbookPath[len(playbookPath)-1]) != "/" {
@@ -47,5 +47,5 @@ func createPlaybookStructure(rolesPath string, name string, folders []string) (e
 		}
 	}
 
-	return nil
+	return fmt.Sprintf("Role %s was created successfully", name), nil
 }
