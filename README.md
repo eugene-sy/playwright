@@ -74,6 +74,10 @@ To simply build binary, run:
 make build
 ```
 
+## Changelog
+
+Check `CHANGELOG.md` file.
+
 ## License
 
 This software is built and distributed under GPLv3 license (Ansible uses this license).
