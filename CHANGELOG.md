@@ -5,6 +5,7 @@
 * Verbose output for commands
 * Colored output for commands
 * Updates in README and CHANGELOG
+* Build with GoLang 1.7 and 1.8
 
 ## 0.0.2
 
