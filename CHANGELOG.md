@@ -1,9 +1,10 @@
-# Cahngelog
+# Changelog
 
 ## 0.0.3
 
 * Verbose output for commands
 * Colored output for commands
+* Updates in README and CHANGELOG
 
 ## 0.0.2
 
