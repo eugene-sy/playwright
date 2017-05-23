@@ -1,12 +1,22 @@
 # Playwright
 
+[![Build Status](https://travis-ci.org/Axblade/playwright.svg?branch=master)](https://travis-ci.org/Axblade/playwright)
+[![Go Report Card](https://goreportcard.com/badge/github.com/axblade/playwright)](https://goreportcard.com/report/github.com/axblade/playwright)
+
 Simple utility that helps you manage Ansible roles folder structure.
+
+## Why
+
+Ansible is shipped with a [tool](http://docs.ansible.com/ansible/galaxy.html#create-roles) for creation of folder structure for new roles.
+It creates full structure of folders and `main.yml` files. Generally you don't need to create all that folders and most frequent case is having `tasks` folder and `main.yml` there. Also, unused folders and files produce same effect as dead code in any codebase.
+
+Playwright allows you to control which parts of the role you create and when.
 
 ## How to use it
 
 You need to set up path to your `ansible.cfg` file.
 By default playwright will expect to find it in:
-- `ANSIBLE_CONFIG` environemnt variable
+- `ANSIBLE_CONFIG` environment variable
 - in the current directory by name `ansible.cfg` or `.ansible.cfg`
 - in your system config folder `/etc/ansible/ansible.cfg`
 
@@ -68,6 +78,10 @@ To simply build binary, run:
 ```
 make build
 ```
+
+## Changelog
+
+Check `CHANGELOG.md` file.
 
 ## License
 
