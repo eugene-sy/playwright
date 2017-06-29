@@ -81,15 +81,15 @@ make build
 
 ## Changelog
 
-Check `CHANGELOG.md` file.
+Check [CHANGELOG.md](CHANGELOG.md) file.
 
 ## Contributing
 
 If you're interested in contributing to this project, first of all I would like to extend my heartfelt gratitude.
 
-Check `CONTRIBUTING.md` for more details, please.
+Check [CONTRIBUTING.md](CONTRIBUTING.md) for more details, please.
 
 ## License
 
 This software is built and distributed under GPLv3 license (Ansible uses this license).
-For more information check `LICENSE.md` file in the root folder of the repository.
+For more information check [LICENSE.md](LICENSE.md) file in the root folder of the repository.
