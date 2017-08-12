@@ -48,7 +48,7 @@ func createPlaybookStructure(rolesPath string, name string, folders []string) (s
 			os.Create(filePath)
 			logger.LogSimple("Created main.yml for %s", folder)
 		} else {
-			logger.LogSkip("Skipped creation of main.yml for %s", folder)
+			logger.LogWarning("Skipped creation of main.yml for %s", folder)
 		}
 	}
 
