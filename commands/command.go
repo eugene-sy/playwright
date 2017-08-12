@@ -130,6 +130,10 @@ func (command *Command) ansibleConfigPath() (path string, err error) {
 	return "", errors.New("Ansible config not found")
 }
 
+// availableRolesPath parses roles_path string into a set of roles paths
+// roles_path='' is parsed into empty array
+// roles_path=/something is parsed into array with one element '/something'
+// roles_path=/something:/something-else is parsed into array of strings delimited by a ':'
 func availableRolesPath(rolesPaths string) []string {
 	options := strings.TrimSpace(strings.Split(rolesPaths, "=")[1])
 
