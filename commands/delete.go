@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/Axblade/playwright/log"
+	"github.com/Axblade/playwright/logger"
 	"github.com/Axblade/playwright/utils"
 )
 
@@ -39,7 +39,7 @@ func deletePlaybookStructure(rolesPath string, name string, folders []string) (s
 	}
 
 	os.RemoveAll(playbookPath)
-	log.LogSimple("Removed role %s with all contents", name)
+	logger.LogSimple("Removed role %s with all contents", name)
 
 	return fmt.Sprintf("Role %s was deleted successfully", name), nil
 }

@@ -6,7 +6,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/Axblade/playwright/log"
+	"github.com/Axblade/playwright/logger"
 	"github.com/Axblade/playwright/utils"
 )
 
@@ -91,7 +91,7 @@ func (command *Command) ReadRolesPath() (rolesPath string, err error) {
 		return "", errors.New("Cannot read data from Ansible configuration file")
 	}
 
-	log.LogWarning("Roles path was not found in configuration file, using default path.")
+	logger.LogWarning("Roles path was not found in configuration file, using default path.")
 
 	return utils.Concat(prefix, "roles"), nil
 }
