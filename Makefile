@@ -17,7 +17,13 @@ fmt:
 	cd $(BUILD_PATH) && go fmt
 	cd $(BUILD_PATH)/commands && go fmt
 	cd $(BUILD_PATH)/utils && go fmt
-	cd $(BUILD_PATH)/log && go fmt
+	cd $(BUILD_PATH)/logger && go fmt
+
+test:
+	cd $(BUILD_PATH) && go test -v
+	cd $(BUILD_PATH)/commands && go test -v
+	cd $(BUILD_PATH)/utils && go test -v
+	cd $(BUILD_PATH)/logger && go test -v
 
 install-native: build
 	cd $(BUILD_PATH) && go install
@@ -25,4 +31,4 @@ install-native: build
 install: build
 	cp playwright /usr/local/bin/playwright
 
-.PHONY: build configure fmt install
+.PHONY: build configure fmt install install-native test

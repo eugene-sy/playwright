@@ -77,13 +77,20 @@ func (command *Command) ReadRolesPath() (rolesPath string, err error) {
 	parts := strings.SplitAfter(path, "/")
 	prefix := strings.Join(parts[:len(parts)-1], "")
 
+	defaultPath := utils.Concat(prefix, "roles")
+
 	scanner := bufio.NewScanner(file)
 
 	for scanner.Scan() {
-		if strings.Contains(scanner.Text(), "roles_path") {
-			option := scanner.Text()
-			rolesPath = strings.TrimSpace(strings.Split(option, "=")[1])
-			return utils.Concat(prefix, rolesPath), nil
+		option := scanner.Text()
+		if strings.Contains(option, "roles_path") {
+			path := availableRolesPath(option)
+
+			if len(path) == 0 {
+				return defaultPath, nil
+			}
+
+			return utils.Concat(prefix, path[0]), nil
 		}
 	}
 
@@ -93,7 +100,7 @@ func (command *Command) ReadRolesPath() (rolesPath string, err error) {
 
 	logger.LogWarning("Roles path was not found in configuration file, using default path.")
 
-	return utils.Concat(prefix, "roles"), nil
+	return defaultPath, nil
 }
 
 // ansibleConfigPath checks if path to ansible config set
@@ -121,4 +128,14 @@ func (command *Command) ansibleConfigPath() (path string, err error) {
 	}
 
 	return "", errors.New("Ansible config not found")
+}
+
+func availableRolesPath(rolesPaths string) []string {
+	options := strings.TrimSpace(strings.Split(rolesPaths, "=")[1])
+
+	if len(options) == 0 {
+		return []string{}
+	}
+
+	return strings.Split(options, ":")
 }
