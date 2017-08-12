@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/Axblade/playwright/log"
+	"github.com/Axblade/playwright/logger"
 	"github.com/Axblade/playwright/utils"
 )
 
@@ -41,14 +41,14 @@ func createPlaybookStructure(rolesPath string, name string, folders []string) (s
 	for _, folder := range folders {
 		folderPath := utils.Concat(playbookPath, folder)
 		os.MkdirAll(folderPath, 0755)
-		log.LogSimple("Created directory: %s", folder)
+		logger.LogSimple("Created directory: %s", folder)
 
 		if folder != "files" && folder != "templates" {
 			filePath := utils.Concat(folderPath, "/main.yml")
 			os.Create(filePath)
-			log.LogSimple("Created main.yml for %s", folder)
+			logger.LogSimple("Created main.yml for %s", folder)
 		} else {
-			log.LogSkip("Skipped creation of main.yml for %s", folder)
+			logger.LogWarning("Skipped creation of main.yml for %s", folder)
 		}
 	}
 

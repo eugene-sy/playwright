@@ -6,7 +6,7 @@ import (
 	"gopkg.in/alecthomas/kingpin.v2"
 
 	"github.com/Axblade/playwright/commands"
-	"github.com/Axblade/playwright/log"
+	"github.com/Axblade/playwright/logger"
 )
 
 var (
@@ -48,9 +48,11 @@ func main() {
 		err = fmt.Errorf("Nothing was called, check --help command.\n")
 	}
 
+	logger.LogWarning("WTF?!")
+
 	if err == nil {
-		log.LogSuccess(success)
+		logger.LogSuccess(success)
 	} else {
-		log.LogError("Error: %s\n", err)
+		logger.LogError("Error: %s\n", err)
 	}
 }

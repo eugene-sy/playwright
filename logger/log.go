@@ -1,4 +1,4 @@
-package log
+package logger
 
 import "github.com/fatih/color"
 
@@ -7,8 +7,8 @@ func LogSimple(format string, args ...interface{}) {
 	color.White(format, args...)
 }
 
-// LogSkip - print yellow message
-func LogSkip(format string, args ...interface{}) {
+// LogWarning - prints yellow message
+func LogWarning(format string, args ...interface{}) {
 	color.Yellow(format, args...)
 }
 
