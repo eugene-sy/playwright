@@ -1,9 +1,9 @@
 package commands
 
 import (
-	"testing"
-	"reflect"
 	"fmt"
+	"reflect"
+	"testing"
 )
 
 func TestAvailableRolesPathWithSingleInput(t *testing.T) {
@@ -12,7 +12,7 @@ func TestAvailableRolesPathWithSingleInput(t *testing.T) {
 
 	result := availableRolesPath(input)
 
-	expected := []string{ first }
+	expected := []string{first}
 	if !reflect.DeepEqual(result, expected) {
 		message := fmt.Sprintf("Function returned wrong array, %v, expected: %v", result, expected)
 		t.Error(message)
@@ -26,7 +26,7 @@ func TestAvailableRolesPathWithMultipleInput(t *testing.T) {
 
 	result := availableRolesPath(input)
 
-	expected := []string{ first, second }
+	expected := []string{first, second}
 	if !reflect.DeepEqual(result, expected) {
 		message := fmt.Sprintf("Function returned wrong array, %v, expected: %v", result, expected)
 		t.Error(message)

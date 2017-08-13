@@ -30,6 +30,7 @@ var (
 	ANSIBLE_CONFIG     = "./ansible.cfg"
 	ANSIBLE_CONFIG_DOT = "./.ansible.cfg"
 	ANSIBLE_CONFIG_OS  = "/etc/ansible/ansible.cfg"
+	ANSIBLE_ROLES_PATH = "ANSIBLE_ROLES_PATH"
 )
 
 // SelectFolders returns an array of folder names
@@ -63,6 +64,17 @@ func (command *Command) SelectFolders() []string {
 // - from ansible configuration file if it is set
 // - otherwise returns current directory followed by 'roles'
 func (command *Command) ReadRolesPath() (rolesPath string, err error) {
+	envRolesPath := os.Getenv(ANSIBLE_ROLES_PATH)
+
+	if envRolesPath != "" {
+		return envRolesPath, nil
+	}
+
+	return command.readRolesPathFromConfig()
+}
+
+// readRolesPathFromConfig - reads roles path from ansible config file
+func (command *Command) readRolesPathFromConfig() (rolesPath string, err error) {
 	path, err := command.ansibleConfigPath()
 	if err != nil {
 		return "", errors.New("Cannot find Ansible configuration file")
