@@ -48,8 +48,6 @@ func main() {
 		err = fmt.Errorf("Nothing was called, check --help command.\n")
 	}
 
-	logger.LogWarning("WTF?!")
-
 	if err == nil {
 		logger.LogSuccess(success)
 	} else {

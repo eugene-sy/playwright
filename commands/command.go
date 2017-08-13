@@ -30,6 +30,7 @@ var (
 	ANSIBLE_CONFIG     = "./ansible.cfg"
 	ANSIBLE_CONFIG_DOT = "./.ansible.cfg"
 	ANSIBLE_CONFIG_OS  = "/etc/ansible/ansible.cfg"
+	ANSIBLE_ROLES_PATH = "ANSIBLE_ROLES_PATH"
 )
 
 // SelectFolders returns an array of folder names
@@ -63,6 +64,17 @@ func (command *Command) SelectFolders() []string {
 // - from ansible configuration file if it is set
 // - otherwise returns current directory followed by 'roles'
 func (command *Command) ReadRolesPath() (rolesPath string, err error) {
+	envRolesPath := os.Getenv(ANSIBLE_ROLES_PATH)
+
+	if envRolesPath != "" {
+		return envRolesPath, nil
+	}
+
+	return command.readRolesPathFromConfig()
+}
+
+// readRolesPathFromConfig - reads roles path from ansible config file
+func (command *Command) readRolesPathFromConfig() (rolesPath string, err error) {
 	path, err := command.ansibleConfigPath()
 	if err != nil {
 		return "", errors.New("Cannot find Ansible configuration file")
@@ -77,13 +89,20 @@ func (command *Command) ReadRolesPath() (rolesPath string, err error) {
 	parts := strings.SplitAfter(path, "/")
 	prefix := strings.Join(parts[:len(parts)-1], "")
 
+	defaultPath := utils.Concat(prefix, "roles")
+
 	scanner := bufio.NewScanner(file)
 
 	for scanner.Scan() {
-		if strings.Contains(scanner.Text(), "roles_path") {
-			option := scanner.Text()
-			rolesPath = strings.TrimSpace(strings.Split(option, "=")[1])
-			return utils.Concat(prefix, rolesPath), nil
+		option := scanner.Text()
+		if strings.Contains(option, "roles_path") {
+			path := availableRolesPath(option)
+
+			if len(path) == 0 {
+				return defaultPath, nil
+			}
+
+			return utils.Concat(prefix, path[0]), nil
 		}
 	}
 
@@ -93,7 +112,7 @@ func (command *Command) ReadRolesPath() (rolesPath string, err error) {
 
 	logger.LogWarning("Roles path was not found in configuration file, using default path.")
 
-	return utils.Concat(prefix, "roles"), nil
+	return defaultPath, nil
 }
 
 // ansibleConfigPath checks if path to ansible config set
@@ -121,4 +140,18 @@ func (command *Command) ansibleConfigPath() (path string, err error) {
 	}
 
 	return "", errors.New("Ansible config not found")
+}
+
+// availableRolesPath parses roles_path string into a set of roles paths
+// roles_path='' is parsed into empty array
+// roles_path=/something is parsed into array with one element '/something'
+// roles_path=/something:/something-else is parsed into array of strings delimited by a ':'
+func availableRolesPath(rolesPaths string) []string {
+	options := strings.TrimSpace(strings.Split(rolesPaths, "=")[1])
+
+	if len(options) == 0 {
+		return []string{}
+	}
+
+	return strings.Split(options, ":")
 }

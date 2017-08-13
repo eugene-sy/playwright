@@ -11,4 +11,5 @@ install:
   - go get github.com/fatih/color
 
 script:
+  - go test -v -p 1 ./logger ./commands ./utils ./
   - go build -o playwright main.go
