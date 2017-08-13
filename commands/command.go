@@ -61,6 +61,7 @@ func (command *Command) SelectFolders() []string {
 }
 
 // ReadRolesPath finds path to roles directory and checks if the directory exists
+// - from ANSIBLE_ROLES_PATH variable
 // - from ansible configuration file if it is set
 // - otherwise returns current directory followed by 'roles'
 func (command *Command) ReadRolesPath() (rolesPath string, err error) {
