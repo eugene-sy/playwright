@@ -97,13 +97,18 @@ func (command *Command) readRolesPathFromConfig() (rolesPath string, err error) 
 	for scanner.Scan() {
 		option := scanner.Text()
 		if strings.Contains(option, "roles_path") {
-			path := availableRolesPath(option)
+			paths := availableRolesPath(option)
+			logger.LogSimple("%v", paths)
 
-			if len(path) == 0 {
+			if len(paths) == 0 {
 				return defaultPath, nil
 			}
 
-			return utils.Concat(prefix, path[0]), nil
+			if len(paths) > 1 {
+				printMultipleRolesPathMessage(paths)
+			}
+
+			return utils.Concat(prefix, paths[0]), nil
 		}
 	}
 
@@ -155,4 +160,14 @@ func availableRolesPath(rolesPaths string) []string {
 	}
 
 	return strings.Split(options, ":")
+}
+
+func printMultipleRolesPathMessage(rolesPaths []string) {
+	logger.LogSimple("Configuration file contains multiple role paths: \n\n")
+
+	for index, entry = range rolesPath {
+		logger.LogSimple("%d. %s", index, entry)
+	}
+
+	logger.LogSimple("\nPlease, select path where you want role to be created.")
 }
