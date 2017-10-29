@@ -162,6 +162,8 @@ func availableRolesPath(rolesPaths string) []string {
 	return strings.Split(options, ":")
 }
 
+// printMultipleRolesPathMessage prints message that multiple roles path found
+// also prints path options
 func printMultipleRolesPathMessage(rolesPaths []string) {
 	logger.LogSimple("Configuration file contains multiple role paths: \n\n")
 
