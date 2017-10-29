@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"errors"
 	"os"
+	"strconv"
 	"strings"
 
 	"github.com/Axblade/playwright/logger"
@@ -105,7 +106,7 @@ func (command *Command) readRolesPathFromConfig() (rolesPath string, err error) 
 			}
 
 			if len(paths) > 1 {
-				printMultipleRolesPathMessage(paths)
+				return makeUserSelectPath(paths)
 			}
 
 			return utils.Concat(prefix, paths[0]), nil
@@ -167,9 +168,43 @@ func availableRolesPath(rolesPaths string) []string {
 func printMultipleRolesPathMessage(rolesPaths []string) {
 	logger.LogSimple("Configuration file contains multiple role paths: \n\n")
 
-	for index, entry = range rolesPath {
+	for index, entry := range rolesPaths {
 		logger.LogSimple("%d. %s", index, entry)
 	}
 
 	logger.LogSimple("\nPlease, select path where you want role to be created.")
+}
+
+// makeUserSelectPath asks user to select path in the array
+// returns selected path
+func makeUserSelectPath(rolesPaths []string) (path string, err error) {
+	printMultipleRolesPathMessage(rolesPaths)
+
+	reader := bufio.NewReader(os.Stdin)
+	validInput := false
+
+	var index int
+	for validInput {
+		logger.LogSimple("Enter path number: ")
+		text, err := reader.ReadString('\n')
+
+		if err != nil {
+			return "", err
+		}
+
+		index, err := strconv.Atoi(text)
+
+		if err != nil {
+			logger.LogError("Input cannot be parsed, please, try again")
+		} else if index < 1 || index > len(rolesPaths) {
+			logger.LogError("You must enter a number from list, please, try again")
+		} else {
+			validInput = true
+		}
+	}
+
+	selected := rolesPaths[index]
+	logger.LogSimple("Selected: %s", selected)
+
+	return selected, nil
 }
