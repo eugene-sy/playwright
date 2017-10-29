@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"errors"
 	"os"
+	"strconv"
 	"strings"
 
 	"github.com/Axblade/playwright/logger"
@@ -61,6 +62,7 @@ func (command *Command) SelectFolders() []string {
 }
 
 // ReadRolesPath finds path to roles directory and checks if the directory exists
+// - from ANSIBLE_ROLES_PATH variable
 // - from ansible configuration file if it is set
 // - otherwise returns current directory followed by 'roles'
 func (command *Command) ReadRolesPath() (rolesPath string, err error) {
@@ -96,13 +98,18 @@ func (command *Command) readRolesPathFromConfig() (rolesPath string, err error) 
 	for scanner.Scan() {
 		option := scanner.Text()
 		if strings.Contains(option, "roles_path") {
-			path := availableRolesPath(option)
+			paths := availableRolesPath(option)
+			logger.LogSimple("%v", paths)
 
-			if len(path) == 0 {
+			if len(paths) == 0 {
 				return defaultPath, nil
 			}
 
-			return utils.Concat(prefix, path[0]), nil
+			if len(paths) > 1 {
+				return makeUserSelectPath(paths)
+			}
+
+			return utils.Concat(prefix, paths[0]), nil
 		}
 	}
 
@@ -154,4 +161,50 @@ func availableRolesPath(rolesPaths string) []string {
 	}
 
 	return strings.Split(options, ":")
+}
+
+// printMultipleRolesPathMessage prints message that multiple roles path found
+// also prints path options
+func printMultipleRolesPathMessage(rolesPaths []string) {
+	logger.LogSimple("Configuration file contains multiple role paths: \n\n")
+
+	for index, entry := range rolesPaths {
+		logger.LogSimple("%d. %s", index, entry)
+	}
+
+	logger.LogSimple("\nPlease, select path where you want role to be created.")
+}
+
+// makeUserSelectPath asks user to select path in the array
+// returns selected path
+func makeUserSelectPath(rolesPaths []string) (path string, err error) {
+	printMultipleRolesPathMessage(rolesPaths)
+
+	reader := bufio.NewReader(os.Stdin)
+	validInput := false
+
+	var index int
+	for validInput {
+		logger.LogSimple("Enter path number: ")
+		text, err := reader.ReadString('\n')
+
+		if err != nil {
+			return "", err
+		}
+
+		index, err := strconv.Atoi(text)
+
+		if err != nil {
+			logger.LogError("Input cannot be parsed, please, try again")
+		} else if index < 1 || index > len(rolesPaths) {
+			logger.LogError("You must enter a number from list, please, try again")
+		} else {
+			validInput = true
+		}
+	}
+
+	selected := rolesPaths[index]
+	logger.LogSimple("Selected: %s", selected)
+
+	return selected, nil
 }
