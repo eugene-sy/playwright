@@ -15,7 +15,7 @@ configure:
 	rm -r $(BUILD_ROOT_PATH) || true
 	mkdir -p $(BUILD_ROOT_PATH)
 	ln -s $(REPO_PATH) $(BUILD_PATH) || true
-	cd $(BUILD_PATH) && glide install
+	cd $(BUILD_PATH) && dep ensure
 
 fmt:
 	cd $(BUILD_PATH) && $(GO_FMT)
