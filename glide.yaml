@@ -1,8 +1,0 @@
-package: com.github/Axblade/playwright
-import:
-- package: gopkg.in/alecthomas/kingpin.v2
-  version: ^2.2.3
-- package: github.com/alecthomas/template
-- package: github.com/alecthomas/units
-- package: github.com/fatih/color
-  version: ~1.4.1
