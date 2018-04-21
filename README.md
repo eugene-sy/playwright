@@ -63,7 +63,7 @@ By default playwright creates only `tasks` folder and `main.yml` in it.
 To build `playwright` you need
 
 - GoLang installed and `$GOPATH` set
-- `glide` to install dependencies in future
+- `dep` to install dependencies
 
 To build and install run next command:
 
