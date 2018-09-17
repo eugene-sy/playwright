@@ -2,59 +2,67 @@
 
 
 [[projects]]
-  name = "github.com/Axblade/playwright"
-  packages = [
-    "commands",
-    "logger",
-    "utils"
-  ]
-  revision = "95fb43d72cecaa66ee184358dadcab8bf40fa7e8"
-
-[[projects]]
   branch = "master"
+  digest = "1:315c5f2f60c76d89b871c73f9bd5fe689cad96597afd50fb9992228ef80bdd34"
   name = "github.com/alecthomas/template"
   packages = [
     ".",
-    "parse"
+    "parse",
   ]
+  pruneopts = "UT"
   revision = "a0175ee3bccc567396460bf5acd36800cb10c49c"
 
 [[projects]]
   branch = "master"
+  digest = "1:c198fdc381e898e8fb62b8eb62758195091c313ad18e52a3067366e1dda2fb3c"
   name = "github.com/alecthomas/units"
   packages = ["."]
+  pruneopts = "UT"
   revision = "2efee857e7cfd4f3d0138cc3cbb1b4966962b93a"
 
 [[projects]]
+  digest = "1:eba92d9b8d2278b05ccf20a0b383d4c6caf5a288e284041601a1021a48b16326"
   name = "github.com/fatih/color"
   packages = ["."]
+  pruneopts = "UT"
   revision = "9131ab34cf20d2f6d83fdc67168a5430d1c7dc23"
   version = "v1.4.1"
 
 [[projects]]
+  digest = "1:31fcf8f5f8f6cc36ef11182c0a0f63ba464e1a7ad9f0e92a7cf46f38bfc0adfd"
   name = "github.com/mattn/go-colorable"
   packages = ["."]
+  pruneopts = "UT"
   revision = "5411d3eea5978e6cdc258b30de592b60df6aba96"
 
 [[projects]]
+  digest = "1:fa610f9fe6a93f4a75e64c83673dfff9bf1a34bbb21e6102021b6bc7850834a3"
   name = "github.com/mattn/go-isatty"
   packages = ["."]
+  pruneopts = "UT"
   revision = "57fdcb988a5c543893cc61bce354a6e24ab70022"
 
 [[projects]]
+  digest = "1:c9c0ba9ea00233c41b91e441cfd490f34b129bbfebcb1858979623bd8de07f72"
   name = "golang.org/x/sys"
   packages = ["unix"]
+  pruneopts = "UT"
   revision = "e24f485414aeafb646f6fca458b0bf869c0880a1"
 
 [[projects]]
+  digest = "1:49da7cd9f265adb37d8732aa3ea27968c4e92b2ac28937468d954134c269d2aa"
   name = "gopkg.in/alecthomas/kingpin.v2"
   packages = ["."]
+  pruneopts = "UT"
   revision = "1087e65c9441605df944fb12c33f0fe7072d18ca"
   version = "v2.2.5"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "d18b500e9fad2be0b50d432ee3a6efa0d24acefad8aacd2ddb951707e6c0dbe5"
+  input-imports = [
+    "github.com/fatih/color",
+    "gopkg.in/alecthomas/kingpin.v2",
+  ]
   solver-name = "gps-cdcl"
   solver-version = 1

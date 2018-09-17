@@ -52,7 +52,20 @@ func updatePlaybookStructure(rolesPath string, name string, folders []string) (s
 
 			if folder != "files" && folder != "templates" {
 				filePath := utils.Concat(folderPath, "/main.yml")
-				os.Create(filePath)
+				file, err := os.Create(filePath)
+
+				if err != nil {
+					return "", fmt.Errorf("Could not create file %s", filePath)
+				}
+
+				defer file.Close()
+
+				if _, err := file.WriteString(YamlFilePrefix); err != nil {
+					return "", fmt.Errorf("Could not write prefix to the file %s", filePath)
+				}
+
+				file.Sync()
+
 				logger.LogSimple("Created main.yml for %s", folder)
 			} else {
 				logger.LogWarning("Skipped creation of main.yml for %s", folder)

@@ -26,12 +26,13 @@ type ICommand interface {
 	Execute() (success string, err error)
 }
 
-var (
-	ANSIBLE_CONFIG_VAR = "ANSIBLE_CONFIG"
-	ANSIBLE_CONFIG     = "./ansible.cfg"
-	ANSIBLE_CONFIG_DOT = "./.ansible.cfg"
-	ANSIBLE_CONFIG_OS  = "/etc/ansible/ansible.cfg"
-	ANSIBLE_ROLES_PATH = "ANSIBLE_ROLES_PATH"
+const (
+	AnsibleConfigVar = "ANSIBLE_CONFIG"
+	AnsibleConfig    = "./ansible.cfg"
+	AnsibleConfigDot = "./.ansible.cfg"
+	AnsibleConfigOs  = "/etc/ansible/ansible.cfg"
+	AnsibleRolesPath = "ANSIBLE_ROLES_PATH"
+	YamlFilePrefix   = "---\n"
 )
 
 // SelectFolders returns an array of folder names
@@ -66,7 +67,7 @@ func (command *Command) SelectFolders() []string {
 // - from ansible configuration file if it is set
 // - otherwise returns current directory followed by 'roles'
 func (command *Command) ReadRolesPath() (rolesPath string, err error) {
-	envRolesPath := os.Getenv(ANSIBLE_ROLES_PATH)
+	envRolesPath := os.Getenv(AnsibleRolesPath)
 
 	if envRolesPath != "" {
 		return envRolesPath, nil
@@ -128,22 +129,22 @@ func (command *Command) readRolesPathFromConfig() (rolesPath string, err error) 
 // in OS deefault location
 // returns location if found, error otherwise
 func (command *Command) ansibleConfigPath() (path string, err error) {
-	envPath := os.Getenv(ANSIBLE_CONFIG_VAR)
+	envPath := os.Getenv(AnsibleConfigVar)
 
 	if envPath != "" {
 		return envPath, nil
 	}
 
-	if _, err := os.Stat(ANSIBLE_CONFIG); err == nil {
-		return ANSIBLE_CONFIG, nil
+	if _, err := os.Stat(AnsibleConfig); err == nil {
+		return AnsibleConfig, nil
 	}
 
-	if _, err := os.Stat(ANSIBLE_CONFIG_DOT); err == nil {
-		return ANSIBLE_CONFIG_DOT, nil
+	if _, err := os.Stat(AnsibleConfigDot); err == nil {
+		return AnsibleConfigDot, nil
 	}
 
-	if _, err := os.Stat(ANSIBLE_CONFIG_OS); err == nil {
-		return ANSIBLE_CONFIG_OS, nil
+	if _, err := os.Stat(AnsibleConfigOs); err == nil {
+		return AnsibleConfigOs, nil
 	}
 
 	return "", errors.New("Ansible config not found")
