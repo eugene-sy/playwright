@@ -26,12 +26,13 @@ type ICommand interface {
 	Execute() (success string, err error)
 }
 
-var (
+const (
 	ANSIBLE_CONFIG_VAR = "ANSIBLE_CONFIG"
 	ANSIBLE_CONFIG     = "./ansible.cfg"
 	ANSIBLE_CONFIG_DOT = "./.ansible.cfg"
 	ANSIBLE_CONFIG_OS  = "/etc/ansible/ansible.cfg"
 	ANSIBLE_ROLES_PATH = "ANSIBLE_ROLES_PATH"
+	YamlFilePrefix     = "---\n"
 )
 
 // SelectFolders returns an array of folder names

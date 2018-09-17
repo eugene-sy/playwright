@@ -1,7 +1,8 @@
 GO_PATH=$(GOPATH)
 GO_PATH?=/tmp/go
-BUILD_ROOT_PATH=$(GO_PATH)/src/com.github/Axblade
-BUILD_PATH=$(BUILD_ROOT_PATH)/playwright
+BUILD_ROOT_PATH=$(GO_PATH)/src/github.com/Axblade
+BINARY_NAME=playwright
+BUILD_PATH=$(BUILD_ROOT_PATH)/$(BINARY_NAME)
 REPO_PATH=$(CURDIR)
 
 GO=go
@@ -9,7 +10,7 @@ GO_FMT=$(GO) fmt
 GO_TEST=$(GO) test -v -p 1
 
 build:
-	cd $(BUILD_PATH) && go build -o playwright main.go
+	cd $(BUILD_PATH) && go build -o $(BINARY_NAME) main.go
 
 configure:
 	rm -r $(BUILD_ROOT_PATH) || true
@@ -33,6 +34,10 @@ install-native: build
 	cd $(BUILD_PATH) && go install
 
 install: build
-	cp playwright /usr/local/bin/playwright
+	cp $(BINARY_NAME) /usr/local/bin/$(BINARY_NAME)
+
+clean:
+	rm -rf $(BINARY_NAME)
+	rm -rf $(SRC)
 
 .PHONY: build configure fmt install install-native test
