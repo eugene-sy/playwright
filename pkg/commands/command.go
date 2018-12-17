@@ -3,7 +3,6 @@ package commands
 import (
 	"bufio"
 	"errors"
-	"fmt"
 	"os"
 	"strconv"
 	"strings"
@@ -60,7 +59,6 @@ func (command *Command) SelectFolders() []string {
 		result = append(result, "meta")
 	}
 
-	fmt.Println("%+v", result)
 	return result
 }
 

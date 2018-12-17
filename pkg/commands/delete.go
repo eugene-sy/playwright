@@ -38,9 +38,11 @@ func deletePlaybookStructure(rolesPath string, name string, folders []string) (s
 		playbookPath = utils.Concat(playbookPath, "/")
 	}
 
-	fmt.Println("%+v", folders)
-	if len(folders) != 0 {
+	if len(folders) != 1 {
 		for _, folder := range folders {
+			if folder == "tasks" {
+				continue
+			}
 			folderPath := utils.Concat(playbookPath, folder)
 			os.RemoveAll(folderPath)
 			logger.LogSimple("Removed %s of the role %s", folder, name)
