@@ -3,12 +3,13 @@ package commands
 import (
 	"bufio"
 	"errors"
+	"fmt"
 	"os"
 	"strconv"
 	"strings"
 
-	"github.com/Axblade/playwright/logger"
-	"github.com/Axblade/playwright/utils"
+	"github.com/eugene-sy/playwright/pkg/logger"
+	"github.com/eugene-sy/playwright/pkg/utils"
 )
 
 type Command struct {
@@ -59,6 +60,7 @@ func (command *Command) SelectFolders() []string {
 		result = append(result, "meta")
 	}
 
+	fmt.Println("%+v", result)
 	return result
 }
 

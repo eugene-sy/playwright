@@ -5,8 +5,8 @@ import (
 
 	"gopkg.in/alecthomas/kingpin.v2"
 
-	"github.com/Axblade/playwright/commands"
-	"github.com/Axblade/playwright/logger"
+	"github.com/eugene-sy/playwright/pkg/commands"
+	"github.com/eugene-sy/playwright/pkg/logger"
 )
 
 var (
@@ -28,7 +28,7 @@ var (
 )
 
 func main() {
-	kingpin.Version("0.0.3")
+	kingpin.Version("0.0.4")
 	parsed := kingpin.Parse()
 
 	var err error

@@ -1,8 +1,9 @@
 GO_PATH=$(GOPATH)
 GO_PATH?=/tmp/go
-BUILD_ROOT_PATH=$(GO_PATH)/src/github.com/Axblade
 BINARY_NAME=playwright
+SRC_ROOT=$(BUILD_PATH)/pkg
 REPO_PATH=$(CURDIR)
+VENDOR=$(REPO_PATH)/vendor
 
 GO=go
 GO_FMT=$(GO) fmt
@@ -11,22 +12,22 @@ GO_GET=$(GO) get
 GO_INSTALL=$(GO) install
 
 build:
-	cd $(REPO_PATH) && go build -o $(BINARY_NAME) main.go
+	cd $(REPO_PATH) && go build -o $(BINARY_NAME) pkg/main.go
 
 configure:
 	cd $(REPO_PATH) && $(GO_GET)
 
 fmt:
-	cd $(REPO_PATH) && $(GO_FMT)
-	cd $(REPO_PATH)/commands && $(GO_FMT)
-	cd $(REPO_PATH)/utils && $(GO_FMT)
-	cd $(REPO_PATH)/logger && $(GO_FMT)
+	cd $(SRC_ROOT) && $(GO_FMT)
+	cd $(SRC_ROOT)/commands && $(GO_FMT)
+	cd $(SRC_ROOT)/utils && $(GO_FMT)
+	cd $(SRC_ROOT)/logger && $(GO_FMT)
 
 test:
-	cd $(REPO_PATH) && $(GO_TEST)
-	cd $(REPO_PATH)/commands && $(GO_TEST)
-	cd $(REPO_PATH)/utils && $(GO_TEST)
-	cd $(REPO_PATH)/logger && $(GO_TEST)
+	cd $(SRC_ROOT) && $(GO_TEST)
+	cd $(SRC_ROOT)/commands && $(GO_TEST)
+	cd $(SRC_ROOT)/utils && $(GO_TEST)
+	cd $(SRC_ROOT)/logger && $(GO_TEST)
 
 install-native: build
 	cd $(REPO_PATH) && $(GO_INSTALL)
