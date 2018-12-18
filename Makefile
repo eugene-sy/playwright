@@ -2,6 +2,7 @@ GO_PATH=$(GOPATH)
 GO_PATH?=/tmp/go
 BINARY_NAME=playwright
 SRC_ROOT=$(BUILD_PATH)/pkg
+TEST_ROOT=$(BUILD_PATH)/test
 REPO_PATH=$(CURDIR)
 VENDOR=$(REPO_PATH)/vendor
 
@@ -29,6 +30,9 @@ test:
 	cd $(SRC_ROOT)/utils && $(GO_TEST)
 	cd $(SRC_ROOT)/logger && $(GO_TEST)
 
+it:
+	cd $(TEST_ROOT) && $(GO_TEST)
+
 install-native: build
 	cd $(REPO_PATH) && $(GO_INSTALL)
 
@@ -38,4 +42,4 @@ install: build
 clean:
 	rm -rf $(BINARY_NAME)
 
-.PHONY: build configure fmt install install-native test
+.PHONY: build configure fmt install install-native test it
