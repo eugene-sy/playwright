@@ -1,17 +1,12 @@
 language: go
 
 go:
-  - "1.8"
-  - "1.9"
-  - "1.10"
-
+  - "1.11"
+  - "1.12"
 
 install:
-  - go get gopkg.in/alecthomas/kingpin.v2
-  - go get github.com/alecthomas/template
-  - go get github.com/alecthomas/units
-  - go get github.com/fatih/color
+  - make configure
 
 script:
-  - go test -v -p 1 ./logger ./commands ./utils ./
-  - go build -o playwright main.go
+  - make test
+  - make build
