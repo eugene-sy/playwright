@@ -1,10 +1,9 @@
 GO_PATH=$(GOPATH)
 GO_PATH?=/tmp/go
 BINARY_NAME=playwright
-SRC_ROOT=$(BUILD_PATH)/pkg
-TEST_ROOT=$(BUILD_PATH)/test
 REPO_PATH=$(CURDIR)
-VENDOR=$(REPO_PATH)/vendor
+SRC_ROOT=$(REPO_PATH)/pkg
+TEST_ROOT=$(REPO_PATH)/test
 
 GO=go
 GO_FMT=$(GO) fmt
