@@ -1,6 +1,6 @@
 # Playwright
 
-[![Build Status](https://travis-ci.org/Axblade/playwright.svg?branch=master)](https://travis-ci.org/Axblade/playwright)
+[![Build Status](https://travis-ci.org/eugene-sy/playwright.svg?branch=master)](https://travis-ci.org/eugene-sy/playwright)
 [![Go Report Card](https://goreportcard.com/badge/github.com/axblade/playwright)](https://goreportcard.com/report/github.com/axblade/playwright)
 
 Simple utility that helps you manage Ansible roles folder structure.

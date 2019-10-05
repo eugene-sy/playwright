@@ -1,8 +1,10 @@
 language: go
 
 go:
-  - "1.11"
   - "1.12"
+
+env:
+  - GO111MODULE=on
 
 install:
   - make configure
@@ -10,3 +12,4 @@ install:
 script:
   - make test
   - make build
+  - make it

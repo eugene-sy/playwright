@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/Axblade/playwright/logger"
-	"github.com/Axblade/playwright/utils"
+	"github.com/eugene-sy/playwright/pkg/logger"
+	"github.com/eugene-sy/playwright/pkg/utils"
 )
 
 type DeleteCommand struct {
@@ -38,8 +38,19 @@ func deletePlaybookStructure(rolesPath string, name string, folders []string) (s
 		playbookPath = utils.Concat(playbookPath, "/")
 	}
 
-	os.RemoveAll(playbookPath)
-	logger.LogSimple("Removed role %s with all contents", name)
+	if len(folders) != 1 {
+		for _, folder := range folders {
+			if folder == "tasks" {
+				continue
+			}
+			folderPath := utils.Concat(playbookPath, folder)
+			os.RemoveAll(folderPath)
+			logger.LogSimple("Removed %s of the role %s", folder, name)
+		}
+	} else {
+		os.RemoveAll(playbookPath)
+		logger.LogSimple("Removed role %s with all contents", name)
+	}
 
 	return fmt.Sprintf("Role %s was deleted successfully", name), nil
 }

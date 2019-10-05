@@ -7,8 +7,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/Axblade/playwright/logger"
-	"github.com/Axblade/playwright/utils"
+	"github.com/eugene-sy/playwright/pkg/logger"
+	"github.com/eugene-sy/playwright/pkg/utils"
 )
 
 type Command struct {
