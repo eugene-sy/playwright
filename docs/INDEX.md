@@ -1,3 +1,7 @@
+---
+layout: home
+---
+
 # Playwright
 
 [![Build Status](https://travis-ci.org/eugene-sy/playwright.svg?branch=master)](https://travis-ci.org/eugene-sy/playwright)

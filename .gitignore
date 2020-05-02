@@ -3,3 +3,5 @@ env
 playwright
 
 vendor/*
+
+docs/_site
