@@ -87,15 +87,15 @@ make build
 
 ## Changelog
 
-Check [CHANGELOG](/changelog) file.
+Check [CHANGELOG](/playwright/changelog) file.
 
 ## Contributing
 
 If you're interested in contributing to this project, first of all I would like to extend my heartfelt gratitude.
 
-Check [CONTRIBUTING](/contributing) for more details, please.
+Check [CONTRIBUTING](/playwright/contributing) for more details, please.
 
 ## License
 
 This software is built and distributed under GPLv3 license (Ansible uses this license).
-For more information check [LICENSE](/license) file in the root folder of the repository.
+For more information check [LICENSE](/playwright/license) file in the root folder of the repository.
