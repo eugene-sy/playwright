@@ -7,7 +7,7 @@ username: 'Eugene Sypachev'
 github_username: eugene-sy
 
 project: playwright
-project_url: playwright
+project_url: /playwright
 
 # Build settings
 markdown: kramdown
