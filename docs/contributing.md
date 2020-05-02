@@ -1,3 +1,9 @@
+---
+title: 'Playwright: Contributing'
+permalink: '/contributing/index.html'
+layout: default
+---
+
 # Contributing
 
 ## With Issues

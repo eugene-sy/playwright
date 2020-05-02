@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% include head.html %}
+  </head>
+  <body>
+    <main class="content-wrap" role="main">
+      {% include title.html %}
+
+      <div class="container">
+        <div class="wrap">
+          <div class="post-content">
+            {{ content }}
+          </div>
+        </div>
+      </div>
+    </main>
+
+    {% include footer.html %}
+    {% include scripts.html %}
+  </body>
+</html>
