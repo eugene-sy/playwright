@@ -8,7 +8,7 @@ TEST_ROOT=$(REPO_PATH)/test
 GO=go
 GO_FMT=$(GO) fmt
 GO_TEST=$(GO) test -v -p 1
-GO_GET=$(GO) get
+GO_GET=$(GO) mod vendor
 GO_INSTALL=$(GO) install
 
 build:
