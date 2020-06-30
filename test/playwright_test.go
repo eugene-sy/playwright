@@ -1,6 +1,8 @@
 package test
 
 import (
+	"fmt"
+	"os"
 	"os/exec"
 	"regexp"
 	"testing"
@@ -54,7 +56,7 @@ func checkHelpOutput(t *testing.T, outStr string, err error) {
 	}
 }
 
-func TestParameterlessInvocation(t *testing.T) {
+func TestInvocationWithoutParameters(t *testing.T) {
 	for _, command := range commands {
 		cmd := exec.Command(binary, command)
 		out, err := cmd.CombinedOutput()
@@ -66,8 +68,66 @@ func TestParameterlessInvocation(t *testing.T) {
 
 		errStr := err.Error()
 		if _, matchErr := regexp.MatchString("required argument 'name' not provided", errStr); matchErr != nil {
-
 			t.Error("'playwright ", command, "' was expected to fail with suggestion to add 'name' parameter, but output was: ", errStr)
 		}
 	}
+}
+
+func TestCreateWithDefaultOptions(t *testing.T) {
+	roleName := "test"
+	cmd := exec.Command(binary, "create", roleName)
+	cmd.Dir = testFolder
+	out, err := cmd.CombinedOutput()
+
+	if err != nil {
+		errStr := err.Error()
+		t.Error("'playwright ", cmd, "' was expected to succeed, but it failed with output: ", errStr)
+	}
+
+	outStr := string(out)
+	if _, matchErr := regexp.MatchString("Role test was created successfully", outStr); matchErr != nil {
+		t.Error("'playwright ", cmd, "' was expected to fail with suggestion to add 'name' parameter, but output was: ", outStr)
+	}
+}
+
+const (
+	testFolder = "/tmp/testdir"
+	configFile = testFolder + "/ansible.cfg"
+	config     = ""
+)
+
+func TestMain(m *testing.M) {
+	createTestProjectStructure()
+	code := m.Run()
+	removeTestProjectStructure()
+	os.Exit(code)
+}
+
+func createTestProjectStructure() {
+	os.MkdirAll(testFolder, 0755)
+	file, err := os.Create(configFile)
+	if err != nil {
+		fmt.Errorf("Could not create file %s", configFile)
+		return
+	}
+	defer file.Close()
+
+	if _, err := file.WriteString(config); err != nil {
+		fmt.Errorf("Could not write prefix to the file %s", configFile)
+		return
+	}
+
+	_ = file.Sync()
+	fmt.Println("Created test project folder")
+
+	cd, err := os.Getwd()
+	if err != nil {
+		fmt.Errorf("Could not find current dir: %s", err)
+	}
+	binary = cd + "/" + binary
+}
+
+func removeTestProjectStructure() {
+	fmt.Println("Cleaning up test project folder")
+	os.RemoveAll(testFolder)
 }
