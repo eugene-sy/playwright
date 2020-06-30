@@ -126,7 +126,7 @@ func (command *Command) readRolesPathFromConfig() (rolesPath string, err error) 
 // ansibleConfigPath checks if path to ansible config set
 // as environment variable
 // in current folder
-// in OS deefault location
+// in OS default location
 // returns location if found, error otherwise
 func (command *Command) ansibleConfigPath() (path string, err error) {
 	envPath := os.Getenv(AnsibleConfigVar)

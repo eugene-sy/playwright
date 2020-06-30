@@ -40,7 +40,7 @@ func createPlaybookStructure(rolesPath string, name string, folders []string) (s
 
 	for _, folder := range folders {
 		folderPath := utils.Concat(playbookPath, folder)
-		os.MkdirAll(folderPath, 0755)
+		_ = os.MkdirAll(folderPath, 0755)
 		logger.LogSimple("Created directory: %s", folder)
 
 		if folder != "files" && folder != "templates" {

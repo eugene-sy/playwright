@@ -36,13 +36,13 @@ func main() {
 
 	switch parsed {
 	case "create":
-		cmd := &commands.CreateCommand{commands.Command{*createName, *withHandlers, *withTemplates, *withFiles, *withVars, *withDefaults, *withMeta, *all}}
+		cmd := &commands.CreateCommand{Command: commands.Command{PlaybookName: *createName, WithHandlers: *withHandlers, WithTemplates: *withTemplates, WithFiles: *withFiles, WithVars: *withVars, WithDefaults: *withDefaults, WithMeta: *withMeta, All: *all}}
 		success, err = cmd.Execute()
 	case "update":
-		cmd := &commands.UpdateCommand{commands.Command{*updateName, *withHandlers, *withTemplates, *withFiles, *withVars, *withDefaults, *withMeta, *all}}
+		cmd := &commands.UpdateCommand{Command: commands.Command{PlaybookName: *updateName, WithHandlers: *withHandlers, WithTemplates: *withTemplates, WithFiles: *withFiles, WithVars: *withVars, WithDefaults: *withDefaults, WithMeta: *withMeta, All: *all}}
 		success, err = cmd.Execute()
 	case "delete":
-		cmd := &commands.DeleteCommand{commands.Command{*deleteName, *withHandlers, *withTemplates, *withFiles, *withVars, *withDefaults, *withMeta, *all}}
+		cmd := &commands.DeleteCommand{Command: commands.Command{PlaybookName: *deleteName, WithHandlers: *withHandlers, WithTemplates: *withTemplates, WithFiles: *withFiles, WithVars: *withVars, WithDefaults: *withDefaults, WithMeta: *withMeta, All: *all}}
 		success, err = cmd.Execute()
 	default:
 		err = fmt.Errorf("Nothing was called, check --help command.\n")
