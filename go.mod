@@ -7,5 +7,5 @@ require (
 	github.com/alecthomas/units v0.0.0-20151022065526-2efee857e7cf // indirect
 	github.com/fatih/color v1.7.0
 	github.com/mattn/go-colorable v0.1.2 // indirect
-	gopkg.in/alecthomas/kingpin.v2 v2.2.6 // indirect
+	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 )

@@ -11,6 +11,7 @@ import (
 	"github.com/eugene-sy/playwright/pkg/utils"
 )
 
+// Command represents user action with parameters
 type Command struct {
 	PlaybookName  string
 	WithHandlers  bool
@@ -22,6 +23,7 @@ type Command struct {
 	All           bool
 }
 
+// ICommand -- command interface providing unified execution mechanism
 type ICommand interface {
 	Execute() (success string, err error)
 }
