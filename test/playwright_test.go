@@ -90,6 +90,48 @@ func TestCreateWithDefaultOptions(t *testing.T) {
 	}
 }
 
+func TestUpdate(t *testing.T) {
+	roleName := "test"
+	cmd := exec.Command(binary, "create", roleName)
+	cmd.Dir = testFolder
+	out, err := cmd.CombinedOutput()
+
+	if err != nil {
+		errStr := err.Error()
+		t.Error("'playwright ", cmd, "' was expected to succeed, but it failed with output: ", errStr)
+	}
+
+	cmd = exec.Command(binary, "update", roleName, "--vars")
+	cmd.Dir = testFolder
+	out, err = cmd.CombinedOutput()
+
+	outStr := string(out)
+	if _, matchErr := regexp.MatchString("Role test was updated successfully", outStr); matchErr != nil {
+		t.Error("'playwright ", cmd, "' was expected to fail with suggestion to add 'name' parameter, but output was: ", outStr)
+	}
+}
+
+func TestDelete(t *testing.T) {
+	roleName := "test"
+	cmd := exec.Command(binary, "create", roleName)
+	cmd.Dir = testFolder
+	out, err := cmd.CombinedOutput()
+
+	if err != nil {
+		errStr := err.Error()
+		t.Error("'playwright ", cmd, "' was expected to succeed, but it failed with output: ", errStr)
+	}
+
+	cmd = exec.Command(binary, "delete", roleName)
+	cmd.Dir = testFolder
+	out, err = cmd.CombinedOutput()
+
+	outStr := string(out)
+	if _, matchErr := regexp.MatchString("Role test was deleted successfully", outStr); matchErr != nil {
+		t.Error("'playwright ", cmd, "' was expected to fail with suggestion to add 'name' parameter, but output was: ", outStr)
+	}
+}
+
 const (
 	testFolder = "/tmp/testdir"
 	configFile = testFolder + "/ansible.cfg"
