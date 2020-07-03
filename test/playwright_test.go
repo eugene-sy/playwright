@@ -35,6 +35,14 @@ var (
 	}
 )
 
+func TestMain(m *testing.M) {
+	createTestProjectStructure()
+	locateBinary()
+	code := m.Run()
+	removeTestProjectStructure()
+	os.Exit(code)
+}
+
 func TestVersionCall(t *testing.T) {
 	cmd := exec.Command(binary, "--version")
 	out, err := cmd.CombinedOutput()
@@ -106,8 +114,8 @@ func TestCreateWithDefaultOptions(t *testing.T) {
 	}
 
 	outStr := string(out)
-	if _, matchErr := regexp.MatchString("Role test was created successfully", outStr); matchErr != nil {
-		t.Error("'playwright ", cmd, "' was expected to fail with suggestion to add 'name' parameter, but output was: ", outStr)
+	if _, matchErr := regexp.MatchString("created successfully", outStr); matchErr != nil {
+		t.Error("'playwright ", cmd, "' was expected to succeed, but it failed with output: ", outStr)
 	}
 
 	tasksFile := testFolder + "/roles/" + roleName + "/tasks/main.yml"
@@ -130,8 +138,8 @@ func TestCreateWithParams(t *testing.T) {
 			}
 
 			outStr := string(out)
-			if _, matchErr := regexp.MatchString("Role test was created successfully", outStr); matchErr != nil {
-				t.Error("'playwright ", cmd, "' was expected to fail with suggestion to add 'name' parameter, but output was: ", outStr)
+			if _, matchErr := regexp.MatchString("created successfully", outStr); matchErr != nil {
+				t.Error("'playwright ", cmd, "' was expected to succeed, but it failed with output: ", outStr)
 			}
 
 			tasksFile := fmt.Sprintf("%s/roles/%s/tasks/main.yml", testFolder, roleName)
@@ -172,8 +180,8 @@ func TestUpdateWithParams(t *testing.T) {
 			out, err = cmd.CombinedOutput()
 
 			outStr := string(out)
-			if _, matchErr := regexp.MatchString("Role test was updated successfully", outStr); matchErr != nil {
-				t.Error("'playwright ", cmd, "' was expected to fail with suggestion to add 'name' parameter, but output was: ", outStr)
+			if _, matchErr := regexp.MatchString("updated successfully", outStr); matchErr != nil {
+				t.Error("'playwright ", cmd, "' was expected to succeed, but it failed with output: ", outStr)
 			}
 
 			tasksFile := fmt.Sprintf("%s/roles/%s/tasks/main.yml", testFolder, roleName)
@@ -193,8 +201,6 @@ func TestUpdateWithParams(t *testing.T) {
 					t.Errorf("Update command flag used: [%s]. Directory was not created: %s", param, paramFile)
 				}
 			}
-
-			//removeTestProjectStructure()
 		})
 	}
 }
@@ -214,18 +220,60 @@ func TestDelete(t *testing.T) {
 	out, err = cmd.CombinedOutput()
 
 	outStr := string(out)
-	if _, matchErr := regexp.MatchString("Role test was deleted successfully", outStr); matchErr != nil {
-		t.Error("'playwright ", cmd, "' was expected to fail with suggestion to add 'name' parameter, but output was: ", outStr)
+	if _, matchErr := regexp.MatchString("was deleted successfully", outStr); matchErr != nil {
+		t.Error("'playwright ", cmd, "' was expected to succeed, but it failed with output: ", outStr)
+	}
+
+	roleFolder := fmt.Sprintf("%s/roles/%s", testFolder, roleName)
+	if fileExists(roleFolder) {
+		t.Errorf("File was not deleted: %s", roleFolder)
 	}
 }
 
-func TestMain(m *testing.M) {
-	createTestProjectStructure()
-	locateBinary()
-	code := m.Run()
-	removeTestProjectStructure()
-	os.Exit(code)
-}
+//func TestDeleteWithParams(t *testing.T) {
+//	for _, param := range params {
+//		t.Run(fmt.Sprintf("TestDeleteWithParams--%s", param), func(t *testing.T) {
+//			roleName := randomRoleName()
+//			deleteParam := fmt.Sprintf("--%s", param)
+//			cmd := exec.Command(binary, createCommand, roleName, deleteParam)
+//			cmd.Dir = testFolder
+//			out, err := cmd.CombinedOutput()
+//
+//			outStr := string(out)
+//			fmt.Println(outStr)
+//			if err != nil {
+//				t.Error("'playwright ", cmd, "' was expected to succeed, but it failed with output: ", err.Error())
+//			}
+//
+//			cmd = exec.Command(binary, deleteCommand, roleName, deleteParam)
+//			cmd.Dir = testFolder
+//			out, err = cmd.CombinedOutput()
+//
+//			outStr = string(out)
+//			fmt.Println(outStr)
+//			if _, matchErr := regexp.MatchString("was deleted successfully", outStr); matchErr != nil {
+//				t.Error("'playwright ", cmd, "' was expected to succeed, but it failed with output: ", outStr)
+//			}
+//
+//			tasksFile := fmt.Sprintf("%s/roles/%s/tasks/main.yml", testFolder, roleName)
+//			if !fileExists(tasksFile) {
+//				t.Errorf("Delete command flag used: [%s]. File was removed: %s", param, tasksFile)
+//			}
+//
+//			var paramFile string
+//			if param != templateParam && param != filesParam {
+//				paramFile = fmt.Sprintf("%s/roles/%s/%s/main.yml", testFolder, roleName, param)
+//				if fileExists(tasksFile) {
+//					t.Errorf("Delete command flag used: [%s]. File was not removed: %s", param, paramFile)
+//				}
+//			}
+//			paramFile = fmt.Sprintf("%s/roles/%s/%s", testFolder, roleName, param)
+//			if !isDirectory(paramFile) {
+//				t.Errorf("Delete command flag used: [%s]. Directory was not removed: %s", param, paramFile)
+//			}
+//		})
+//	}
+//}
 
 func createTestProjectStructure() {
 	os.MkdirAll(testFolder, 0755)
