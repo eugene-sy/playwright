@@ -92,7 +92,7 @@ func TestInvocationWithoutParameters(t *testing.T) {
 
 			if err == nil {
 				outStr := string(out)
-				t.Error("'playwright ", command, "' was expected to fail, but it succeded with output: ", outStr)
+				t.Error("'playwright ", command, "' was expected to fail, but it succeeded with output: ", outStr)
 			}
 
 			errStr := err.Error()
@@ -209,7 +209,7 @@ func TestDelete(t *testing.T) {
 	roleName := randomRoleName()
 	cmd := exec.Command(binary, createCommand, roleName)
 	cmd.Dir = testFolder
-	out, err := cmd.CombinedOutput()
+	var out, err = cmd.CombinedOutput()
 
 	if err != nil {
 		t.Error("'playwright ", cmd, "' was expected to succeed, but it failed with output: ", err.Error())
@@ -276,8 +276,14 @@ func TestDelete(t *testing.T) {
 //}
 
 func createTestProjectStructure() {
-	os.MkdirAll(testFolder, 0755)
-	file, err := os.Create(configFile)
+	err := os.MkdirAll(testFolder, 0755)
+	if err != nil {
+		fmt.Errorf("Could not create file %s", configFile)
+		return
+	}
+
+	var file *os.File
+	file, err = os.Create(configFile)
 	if err != nil {
 		fmt.Errorf("Could not create file %s", configFile)
 		return

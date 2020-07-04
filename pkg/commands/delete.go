@@ -8,10 +8,15 @@ import (
 	"github.com/eugene-sy/playwright/pkg/utils"
 )
 
+// DeleteCommand implements logic for a role update
+// depending on the flags provided it
+// - removes the role entirely
+// - removes the parts of the role, except the tasks folder and main.yml in it
 type DeleteCommand struct {
 	Command
 }
 
+// DeleteCommand.Execute runs the requested filesystem tree updates, deleting requested parts of it
 func (command *DeleteCommand) Execute() (success string, err error) {
 	folders := command.SelectFolders()
 

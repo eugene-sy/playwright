@@ -8,10 +8,15 @@ import (
 	"github.com/eugene-sy/playwright/pkg/utils"
 )
 
+// UpdateCommand implements logic for a role update
+// depending on the flags provided it modifies the role folder
+// with requested folders and main.yml files where applicable
+// main.yml file is created with yaml document separator in the beginning
 type UpdateCommand struct {
 	Command
 }
 
+// UpdateCommand.Execute runs the requested filesystem tree updates
 func (command *UpdateCommand) Execute() (success string, err error) {
 	folders := command.SelectFolders()
 

@@ -8,10 +8,16 @@ import (
 	"github.com/eugene-sy/playwright/pkg/utils"
 )
 
+// CreateCommand implements logic for a role creation
+// depending on the flags provided it creates
+// - tasks folder with main.yml file in it
+// - any other folders/files used in playbooks
+// main.yml file is created with yaml document separator in the beginning
 type CreateCommand struct {
 	Command
 }
 
+// CreateCommand.Execute creates the requested filesystem tree
 func (command *CreateCommand) Execute() (success string, err error) {
 	folders := command.SelectFolders()
 
