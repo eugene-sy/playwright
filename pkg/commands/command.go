@@ -172,7 +172,7 @@ func printMultipleRolesPathMessage(rolesPaths []string) {
 	logger.LogSimple("Configuration file contains multiple role paths: \n\n")
 
 	for index, entry := range rolesPaths {
-		logger.LogSimple("%d. %s", index, entry)
+		logger.LogSimple("%d. %s", index+1, entry)
 	}
 
 	logger.LogSimple("\nPlease, select path where you want role to be created.")
@@ -184,10 +184,10 @@ func makeUserSelectPath(rolesPaths []string) (path string, err error) {
 	printMultipleRolesPathMessage(rolesPaths)
 
 	reader := bufio.NewReader(os.Stdin)
-	validInput := false
+	waitingForInput := true
 
 	var index int
-	for validInput {
+	for waitingForInput {
 		logger.LogSimple("Enter path number: ")
 		text, err := reader.ReadString('\n')
 
@@ -195,18 +195,18 @@ func makeUserSelectPath(rolesPaths []string) (path string, err error) {
 			return "", err
 		}
 
-		index, err := strconv.Atoi(text)
-
+		text = strings.Replace(text, "\n", "", -1)
+		index, err = strconv.Atoi(text)
 		if err != nil {
 			logger.LogError("Input cannot be parsed, please, try again")
 		} else if index < 1 || index > len(rolesPaths) {
 			logger.LogError("You must enter a number from list, please, try again")
 		} else {
-			validInput = true
+			waitingForInput = false
 		}
 	}
 
-	selected := rolesPaths[index]
+	selected := rolesPaths[index-1]
 	logger.LogSimple("Selected: %s", selected)
 
 	return selected, nil

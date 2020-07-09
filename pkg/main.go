@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	"gopkg.in/alecthomas/kingpin.v2"
 
@@ -9,27 +10,26 @@ import (
 	"github.com/eugene-sy/playwright/pkg/logger"
 )
 
-var (
-	// Commands and args
-	createCmd  = kingpin.Command("create", "Creates roles")
-	createName = createCmd.Arg("name", "Name for role").Required().String()
-	updateCmd  = kingpin.Command("update", "Updates roles")
-	updateName = updateCmd.Arg("name", "Name for role").Required().String()
-	deleteCmd  = kingpin.Command("delete", "Deletes roles")
-	deleteName = deleteCmd.Arg("name", "Name for role").Required().String()
-	// Folder flags
-	withHandlers  = kingpin.Flag("handlers", "Add 'handlers' folder").Bool()
-	withTemplates = kingpin.Flag("templates", "Add 'templates' folder").Bool()
-	withFiles     = kingpin.Flag("files", "Add 'files' folder").Bool()
-	withVars      = kingpin.Flag("vars", "Add 'vars' folder").Bool()
-	withDefaults  = kingpin.Flag("defaults", "Add 'defaults' folder").Bool()
-	withMeta      = kingpin.Flag("meta", "Add 'meta' folder").Bool()
-	all           = kingpin.Flag("all", "Apply action to all folders").Bool()
-)
-
 func main() {
-	kingpin.Version("0.0.4")
-	parsed := kingpin.Parse()
+	app := kingpin.New("playwright", "Command line utility for Ansible role management")
+	app.Version("0.0.4")
+	app.Author("Eugene Sypachev (@eugene-sy)")
+	
+	createCmd := app.Command("create", "Creates roles")
+	createName := createCmd.Arg("name", "Name for role").Required().String()
+	updateCmd := app.Command("update", "Updates roles")
+	updateName := updateCmd.Arg("name", "Name for role").Required().String()
+	deleteCmd := app.Command("delete", "Deletes roles")
+	deleteName := deleteCmd.Arg("name", "Name for role").Required().String()
+	// Folder flags
+	withHandlers := app.Flag("handlers", "Add 'handlers' folder").Bool()
+	withTemplates := app.Flag("templates", "Add 'templates' folder").Bool()
+	withFiles := app.Flag("files", "Add 'files' folder").Bool()
+	withVars := app.Flag("vars", "Add 'vars' folder").Bool()
+	withDefaults := app.Flag("defaults", "Add 'defaults' folder").Bool()
+	withMeta := app.Flag("meta", "Add 'meta' folder").Bool()
+	all := app.Flag("all", "Apply action to all folders").Bool()
+	parsed := kingpin.MustParse(app.Parse(os.Args[1:]))
 
 	var err error
 	var success string
@@ -51,6 +51,10 @@ func main() {
 	if err == nil {
 		logger.LogSuccess(success)
 	} else {
-		logger.LogError("Error: %s\n", err)
+		app.Terminate(func(code int) {
+			logger.LogError("Error: %s\n", err)
+			os.Exit(code)
+		})
+		app.FatalIfError(err, "")
 	}
 }
