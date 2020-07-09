@@ -38,9 +38,8 @@ var (
 func TestMain(m *testing.M) {
 	createTestProjectStructure()
 	locateBinary()
-	code := m.Run()
+	m.Run()
 	removeTestProjectStructure()
-	os.Exit(code)
 }
 
 func TestVersionCall(t *testing.T) {
