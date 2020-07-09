@@ -13,6 +13,8 @@ import (
 func main() {
 	app := kingpin.New("playwright", "Command line utility for Ansible role management")
 	app.Version("0.0.4")
+	app.Author("Eugene Sypachev (@eugene-sy)")
+	
 	createCmd := app.Command("create", "Creates roles")
 	createName := createCmd.Arg("name", "Name for role").Required().String()
 	updateCmd := app.Command("update", "Updates roles")
