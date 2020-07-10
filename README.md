@@ -12,7 +12,7 @@ It creates full structure of folders and `main.yml` files. Generally you don't n
 
 Playwright allows you to control which parts of the role you create and when.
 
-## How to use it
+### Basic usage
 
 You need to set up path to your `ansible.cfg` file.
 By default playwright will expect to find it in:
@@ -33,6 +33,7 @@ playwright [<flags>] <command> [<args> ...]
 
 Flags:
   --help       Show context-sensitive help (also try --help-long and --help-man).
+  --version    Show application version.
   --handlers   Add 'handlers' folder
   --templates  Add 'templates' folder
   --files      Add 'files' folder
@@ -40,7 +41,7 @@ Flags:
   --defaults   Add 'defaults' folder
   --meta       Add 'meta' folder
   --all        Apply action to all folders
-  --version    Show application version.
+  --no-color   Disable color output
 
 Commands:
   help [<command>...]
@@ -56,7 +57,15 @@ Commands:
 	Deletes a playbook
 ```
 
-By default playwright creates only `tasks` folder and `main.yml` in it.
+By default, playwright creates only `tasks` folder and `main.yml` in it.
+
+### Disabling colors in output
+
+Colored output can be disabled using multiple methods:
+* using `--no-color` flag for the command
+* using `PLAYWRIGHT_NOCOLOR=true` environment variable
+* using `NO_COLOR=true` system wide environment variable
+* using `TERM=dumb` environment variable
 
 ## Building and installing
 

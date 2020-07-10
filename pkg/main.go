@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"os"
-
+	"github.com/eugene-sy/playwright/pkg/utils"
 	"gopkg.in/alecthomas/kingpin.v2"
+	"os"
 
 	"github.com/eugene-sy/playwright/pkg/commands"
 	"github.com/eugene-sy/playwright/pkg/logger"
@@ -14,7 +14,7 @@ func main() {
 	app := kingpin.New("playwright", "Command line utility for Ansible role management")
 	app.Version("0.0.4")
 	app.Author("Eugene Sypachev (@eugene-sy)")
-	
+
 	createCmd := app.Command("create", "Creates roles")
 	createName := createCmd.Arg("name", "Name for role").Required().String()
 	updateCmd := app.Command("update", "Updates roles")
@@ -29,7 +29,10 @@ func main() {
 	withDefaults := app.Flag("defaults", "Add 'defaults' folder").Bool()
 	withMeta := app.Flag("meta", "Add 'meta' folder").Bool()
 	all := app.Flag("all", "Apply action to all folders").Bool()
+	noColor := app.Flag("no-color", "Disable color output").Bool()
 	parsed := kingpin.MustParse(app.Parse(os.Args[1:]))
+
+	configureLogging(noColor)
 
 	var err error
 	var success string
@@ -57,4 +60,12 @@ func main() {
 		})
 		app.FatalIfError(err, "")
 	}
+}
+
+func configureLogging(noColor *bool) {
+	osNoColorEnv := utils.GetEnvBool(utils.SystemNoColor, false)
+	playwrightNoColorEnv := utils.GetEnvBool(utils.PlaywrightNoColor, false)
+	termEnv := os.Getenv(utils.Term)
+	useNoColor := *noColor || playwrightNoColorEnv || osNoColorEnv || termEnv == utils.DumbTerminalEnvVarValue
+	logger.Configure(useNoColor)
 }
