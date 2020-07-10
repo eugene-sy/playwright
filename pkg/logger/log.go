@@ -21,3 +21,9 @@ func LogError(format string, args ...interface{}) {
 func LogSuccess(format string, args ...interface{}) {
 	color.Green(format, args...)
 }
+
+func Configure(noColorFlag bool) {
+	if noColorFlag {
+		color.NoColor = true
+	}
+}
