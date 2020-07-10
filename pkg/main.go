@@ -65,9 +65,9 @@ func main() {
 }
 
 func configureLogging(noColor *bool) {
-	osNoColorEnv := utils.GetEnvBool("NO_COLOR", false)
-	playwrightNoColorEnv := utils.GetEnvBool("PLAYWRIGHT_NOCOLOR", false)
-	termEnv := os.Getenv("TERM")
+	osNoColorEnv := utils.GetEnvBool(utils.SystemNoColor, false)
+	playwrightNoColorEnv := utils.GetEnvBool(utils.PlaywrightNoColor, false)
+	termEnv := os.Getenv(utils.Term)
 	useNoColor := *noColor || playwrightNoColorEnv || osNoColorEnv || termEnv == dumbTerminalEnvVarValue
 	logger.Configure(useNoColor)
 }

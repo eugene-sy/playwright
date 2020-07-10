@@ -29,11 +29,11 @@ type ICommand interface {
 }
 
 const (
-	AnsibleConfigVar = "ANSIBLE_CONFIG"
+	AnsibleConfigVar = utils.AnsibleConfigVar
 	AnsibleConfig    = "./ansible.cfg"
 	AnsibleConfigDot = "./.ansible.cfg"
 	AnsibleConfigOs  = "/etc/ansible/ansible.cfg"
-	AnsibleRolesPath = "ANSIBLE_ROLES_PATH"
+	AnsibleRolesPath = utils.AnsibleRolesPath
 	YamlFilePrefix   = "---\n"
 )
 
