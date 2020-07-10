@@ -10,8 +10,6 @@ import (
 	"github.com/eugene-sy/playwright/pkg/logger"
 )
 
-const dumbTerminalEnvVarValue = "termEnv"
-
 func main() {
 	app := kingpin.New("playwright", "Command line utility for Ansible role management")
 	app.Version("0.0.4")
@@ -68,6 +66,6 @@ func configureLogging(noColor *bool) {
 	osNoColorEnv := utils.GetEnvBool(utils.SystemNoColor, false)
 	playwrightNoColorEnv := utils.GetEnvBool(utils.PlaywrightNoColor, false)
 	termEnv := os.Getenv(utils.Term)
-	useNoColor := *noColor || playwrightNoColorEnv || osNoColorEnv || termEnv == dumbTerminalEnvVarValue
+	useNoColor := *noColor || playwrightNoColorEnv || osNoColorEnv || termEnv == utils.DumbTerminalEnvVarValue
 	logger.Configure(useNoColor)
 }

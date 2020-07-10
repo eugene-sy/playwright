@@ -12,6 +12,8 @@ const (
 	PlaywrightNoColor = "PLAYWRIGHT_NOCOLOR"
 	// Term - system-wide terminal env variable
 	Term = "TERM"
+	// DumbTerminalEnvVarValue - dumb value for terminal env variable
+	DumbTerminalEnvVarValue = "dumb"
 	// AnsibleConfigVar - ansible config file env variable
 	AnsibleConfigVar = "ANSIBLE_CONFIG"
 	// AnsibleConfigVar - ansible config file env variable containing path to roles
