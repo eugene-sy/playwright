@@ -12,6 +12,7 @@ project_url: /playwright
 # Build settings
 markdown: kramdown
 permalink: pretty
+remote_theme: eugene-sy/jekyll-theme-eugene-sy
 
 #contacts
 git: 'https://github.com/eugene-sy'

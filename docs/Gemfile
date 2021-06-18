@@ -1,0 +1,7 @@
+# frozen_string_literal: true
+
+source "https://rubygems.org"
+
+gem "jekyll"
+gem "kramdown-parser-gfm"
+gem "jekyll-theme-eugene-sy", :git => "git@github.com:eugene-sy/jekyll-theme-eugene-sy.git"
