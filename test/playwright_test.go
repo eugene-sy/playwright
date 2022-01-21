@@ -277,20 +277,20 @@ func TestDelete(t *testing.T) {
 func createTestProjectStructure() {
 	err := os.MkdirAll(testFolder, 0755)
 	if err != nil {
-		fmt.Errorf("Could not create file %s", configFile)
+		_ = fmt.Errorf("Could not create file %s", configFile)
 		return
 	}
 
 	var file *os.File
 	file, err = os.Create(configFile)
 	if err != nil {
-		fmt.Errorf("Could not create file %s", configFile)
+		_ = fmt.Errorf("Could not create file %s", configFile)
 		return
 	}
 	defer file.Close()
 
 	if _, err := file.WriteString(config); err != nil {
-		fmt.Errorf("Could not write prefix to the file %s", configFile)
+		_ = fmt.Errorf("Could not write prefix to the file %s", configFile)
 		return
 	}
 
@@ -300,7 +300,7 @@ func createTestProjectStructure() {
 func locateBinary() {
 	cd, err := os.Getwd()
 	if err != nil {
-		fmt.Errorf("Could not find current dir: %s", err)
+		_ = fmt.Errorf("Could not find current dir: %s", err)
 	}
 	binary = fmt.Sprintf("%s/%s", cd, relativeBinaryPath)
 }

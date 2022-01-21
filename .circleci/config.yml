@@ -30,6 +30,12 @@ jobs:
       - run:
           name: Static analysis - staticcheck
           command: make lint
+      - run:
+          name: Test - unit
+          command: make test
+      - run:
+          name: Test - integration
+          command: make it
 
 workflows:
   sample:
