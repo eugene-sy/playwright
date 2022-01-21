@@ -11,6 +11,7 @@ GO_TEST=$(GO) test -v -p 1
 GO_GET=$(GO) mod vendor
 GO_VET=$(GO) vet
 GO_INSTALL=$(GO) install
+STATICCHECK=staticcheck
 
 .PHONY: build
 build:
