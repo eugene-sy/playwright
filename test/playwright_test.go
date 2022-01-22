@@ -137,6 +137,7 @@ func TestCreateWithParams(t *testing.T) {
 			}
 
 			outStr := string(out)
+			println(outStr)
 			if _, matchErr := regexp.MatchString("created successfully", outStr); matchErr != nil {
 				t.Error("'playwright ", cmd, "' was expected to succeed, but it failed with output: ", outStr)
 			}
@@ -311,7 +312,7 @@ func removeTestProjectStructure() {
 
 func fileExists(filename string) bool {
 	_, err := os.Stat(filename)
-	return os.IsNotExist(err)
+	return err == nil || !os.IsNotExist(err)
 }
 
 func isDirectory(filename string) bool {
