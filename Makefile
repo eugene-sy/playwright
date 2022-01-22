@@ -38,7 +38,7 @@ test:
 
 .PHONY: it
 it:
-	pushd $(TEST_ROOT) && $(GO_TEST) && popd
+	cd $(TEST_ROOT) && $(GO_TEST)
 
 .PHONY: install-native
 install-native: build
