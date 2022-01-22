@@ -1,6 +1,5 @@
 BINARY_NAME=playwright
-SRC_ROOT=$(REPO_PATH)/pkg
-TEST_ROOT=$(REPO_PATH)/test
+TEST_ROOT=./test
 
 GO=go
 GO_BUILD=$(GO) build
@@ -37,7 +36,7 @@ test:
 
 .PHONY: it
 it:
-	cd $(TEST_ROOT) && $(GO_TEST)
+	pushd $(TEST_ROOT) && $(GO_TEST) && popd
 
 .PHONY: install-native
 install-native: build
