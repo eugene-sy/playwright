@@ -37,7 +37,7 @@ func updatePlaybookStructure(rolesPath string, name string, folders []string) (s
 	playbookPath := utils.Concat(rolesPath, name)
 
 	if !utils.FolderExists(playbookPath) {
-		return "", fmt.Errorf("Role %s does not exists", name)
+		return "", fmt.Errorf("role %s does not exists", name)
 	}
 
 	if string(playbookPath[len(playbookPath)-1]) != "/" {
@@ -49,7 +49,7 @@ func updatePlaybookStructure(rolesPath string, name string, folders []string) (s
 			folderPath := utils.Concat(playbookPath, folder)
 
 			if utils.FolderExists(folderPath) {
-				return "", fmt.Errorf("Folder %s already exists for role %s", folder, name)
+				return "", fmt.Errorf("folder %s already exists for role %s", folder, name)
 			}
 
 			os.MkdirAll(folderPath, 0755)
@@ -60,13 +60,13 @@ func updatePlaybookStructure(rolesPath string, name string, folders []string) (s
 				file, err := os.Create(filePath)
 
 				if err != nil {
-					return "", fmt.Errorf("Could not create file %s", filePath)
+					return "", fmt.Errorf("could not create file %s", filePath)
 				}
 
 				defer file.Close()
 
 				if _, err := file.WriteString(YamlFilePrefix); err != nil {
-					return "", fmt.Errorf("Could not write prefix to the file %s", filePath)
+					return "", fmt.Errorf("could not write prefix to the file %s", filePath)
 				}
 
 				file.Sync()

@@ -48,7 +48,7 @@ func main() {
 		cmd := &commands.DeleteCommand{Command: commands.Command{PlaybookName: *deleteName, WithHandlers: *withHandlers, WithTemplates: *withTemplates, WithFiles: *withFiles, WithVars: *withVars, WithDefaults: *withDefaults, WithMeta: *withMeta, All: *all}}
 		success, err = cmd.Execute()
 	default:
-		err = fmt.Errorf("Nothing was called, check --help command.\n")
+		err = fmt.Errorf("nothing was called, check --help command")
 	}
 
 	if err == nil {

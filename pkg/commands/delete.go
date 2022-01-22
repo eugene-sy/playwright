@@ -36,7 +36,7 @@ func deletePlaybookStructure(rolesPath string, name string, folders []string) (s
 	playbookPath := utils.Concat(rolesPath, name)
 
 	if !utils.FolderExists(playbookPath) {
-		return "", fmt.Errorf("Role %s does not exist", name)
+		return "", fmt.Errorf("role %s does not exist", name)
 	}
 
 	if string(playbookPath[len(playbookPath)-1]) != "/" {

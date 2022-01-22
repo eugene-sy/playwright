@@ -168,7 +168,7 @@ func TestUpdateWithParams(t *testing.T) {
 			roleName := randomRoleName()
 			cmd := exec.Command(binary, createCommand, roleName)
 			cmd.Dir = testFolder
-			out, err := cmd.CombinedOutput()
+			_, err := cmd.CombinedOutput()
 
 			if err != nil {
 				t.Error("'playwright ", cmd, "' was expected to succeed, but it failed with output: ", err.Error())
@@ -176,7 +176,7 @@ func TestUpdateWithParams(t *testing.T) {
 			updateParam := fmt.Sprintf("--%s", param)
 			cmd = exec.Command(binary, updateCommand, roleName, updateParam)
 			cmd.Dir = testFolder
-			out, err = cmd.CombinedOutput()
+			out, _ := cmd.CombinedOutput()
 
 			outStr := string(out)
 			if _, matchErr := regexp.MatchString("updated successfully", outStr); matchErr != nil {
@@ -208,7 +208,7 @@ func TestDelete(t *testing.T) {
 	roleName := randomRoleName()
 	cmd := exec.Command(binary, createCommand, roleName)
 	cmd.Dir = testFolder
-	var out, err = cmd.CombinedOutput()
+	_, err := cmd.CombinedOutput()
 
 	if err != nil {
 		t.Error("'playwright ", cmd, "' was expected to succeed, but it failed with output: ", err.Error())
@@ -216,7 +216,7 @@ func TestDelete(t *testing.T) {
 
 	cmd = exec.Command(binary, deleteCommand, roleName)
 	cmd.Dir = testFolder
-	out, err = cmd.CombinedOutput()
+	out, _ := cmd.CombinedOutput()
 
 	outStr := string(out)
 	if _, matchErr := regexp.MatchString("was deleted successfully", outStr); matchErr != nil {
@@ -311,10 +311,7 @@ func removeTestProjectStructure() {
 
 func fileExists(filename string) bool {
 	_, err := os.Stat(filename)
-	if os.IsNotExist(err) {
-		return false
-	}
-	return true
+	return os.IsNotExist(err)
 }
 
 func isDirectory(filename string) bool {
