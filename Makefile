@@ -1,5 +1,6 @@
 BINARY_NAME=playwright
-TEST_ROOT=./test
+TEST_DIR=test
+TEST_ROOT=./$(TEST_DIR)
 
 GO=go
 GO_BUILD=$(GO) build
@@ -8,6 +9,7 @@ GO_TEST=$(GO) test -v -p 1
 GO_GET=$(GO) mod vendor
 GO_VET=$(GO) vet
 GO_INSTALL=$(GO) install
+GO_LIST=$(GO) list
 STATICCHECK=staticcheck
 
 .PHONY: build
@@ -32,7 +34,7 @@ lint:
 
 .PHONY: test
 test:
-	$(GO_TEST) ./...
+	$(GO_TEST) $$($(GO_LIST) ./... | grep -v $(TEST_DIR))
 
 .PHONY: it
 it:
