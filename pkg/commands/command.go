@@ -82,13 +82,19 @@ func (command *Command) ReadRolesPath() (rolesPath string, err error) {
 func (command *Command) readRolesPathFromConfig() (rolesPath string, err error) {
 	path, err := command.ansibleConfigPath()
 	if err != nil {
-		return "", errors.New("Cannot find Ansible configuration file")
+		return "", errors.New("cannot find Ansible configuration file")
 	}
 
 	file, err := os.Open(path)
-	defer file.Close()
+	defer func(file *os.File) {
+		err := file.Close()
+		if err != nil {
+			panic("cannot open Ansible configuration file")
+		}
+	}(file)
+
 	if err != nil {
-		return "", errors.New("Cannot open Ansible configuration file")
+		return "", errors.New("cannot open Ansible configuration file")
 	}
 
 	parts := strings.SplitAfter(path, "/")
@@ -117,7 +123,7 @@ func (command *Command) readRolesPathFromConfig() (rolesPath string, err error) 
 	}
 
 	if err := scanner.Err(); err != nil {
-		return "", errors.New("Cannot read data from Ansible configuration file")
+		return "", errors.New("cannot read data from Ansible configuration file")
 	}
 
 	logger.LogWarning("Roles path was not found in configuration file, using default path.")
@@ -149,7 +155,7 @@ func (command *Command) ansibleConfigPath() (path string, err error) {
 		return AnsibleConfigOs, nil
 	}
 
-	return "", errors.New("Ansible config not found")
+	return "", errors.New("ansible config not found")
 }
 
 // availableRolesPath parses roles_path string into a set of roles paths
