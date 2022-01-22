@@ -1,11 +1,9 @@
-GO_PATH=$(GOPATH)
-GO_PATH?=/tmp/go
 BINARY_NAME=playwright
-REPO_PATH=$(CURDIR)
 SRC_ROOT=$(REPO_PATH)/pkg
 TEST_ROOT=$(REPO_PATH)/test
 
 GO=go
+GO_BUILD=$(GO) build
 GO_FMT=$(GO) fmt
 GO_TEST=$(GO) test -v -p 1
 GO_GET=$(GO) mod vendor
@@ -15,18 +13,15 @@ STATICCHECK=staticcheck
 
 .PHONY: build
 build:
-	cd $(REPO_PATH) && go build -o $(BINARY_NAME) pkg/main.go
+	$(GO_BUILD) -o $(BINARY_NAME) pkg/main.go
 
 .PHONY: dependencies
 dependencies:
-	cd $(REPO_PATH) && $(GO_GET)
+	$(GO_GET)
 
 .PHONY: fmt
 fmt:
-	cd $(SRC_ROOT) && $(GO_FMT)
-	cd $(SRC_ROOT)/commands && $(GO_FMT)
-	cd $(SRC_ROOT)/utils && $(GO_FMT)
-	cd $(SRC_ROOT)/logger && $(GO_FMT)
+	$(GO_FMT) ./...
 
 .PHONY: vet
 vet:
@@ -38,10 +33,7 @@ lint:
 
 .PHONY: test
 test:
-	cd $(SRC_ROOT) && $(GO_TEST)
-	cd $(SRC_ROOT)/commands && $(GO_TEST)
-	cd $(SRC_ROOT)/utils && $(GO_TEST)
-	cd $(SRC_ROOT)/logger && $(GO_TEST)
+	$(GO_TEST) ./...
 
 .PHONY: it
 it:
@@ -49,7 +41,7 @@ it:
 
 .PHONY: install-native
 install-native: build
-	cd $(REPO_PATH) && $(GO_INSTALL)
+	$(GO_INSTALL)
 
 .PHONY: install
 install: build

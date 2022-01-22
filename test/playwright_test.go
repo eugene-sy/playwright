@@ -137,7 +137,6 @@ func TestCreateWithParams(t *testing.T) {
 			}
 
 			outStr := string(out)
-			println(outStr)
 			if _, matchErr := regexp.MatchString("created successfully", outStr); matchErr != nil {
 				t.Error("'playwright ", cmd, "' was expected to succeed, but it failed with output: ", outStr)
 			}
