@@ -14,7 +14,7 @@ import (
 // - any other folders/files used in playbooks
 // main.yml file is created with yaml document separator in the beginning
 type CreateCommand struct {
-	Command
+	CommandConfiguration
 }
 
 // CreateCommand.Execute creates the requested filesystem tree
@@ -26,7 +26,7 @@ func (command *CreateCommand) Execute() (success string, err error) {
 		return "", err
 	}
 
-	return createPlaybookStructure(rolesPath, command.Command.PlaybookName, folders)
+	return createPlaybookStructure(rolesPath, command.CommandConfiguration.PlaybookName, folders)
 }
 
 func createPlaybookStructure(rolesPath string, name string, folders []string) (success string, err error) {

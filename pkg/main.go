@@ -10,16 +10,22 @@ import (
 	"github.com/eugene-sy/playwright/pkg/logger"
 )
 
+const (
+	CreateCommand = "create"
+	UpdateCommand = "update"
+	DeleteCommand = "delete"
+)
+
 func main() {
-	app := kingpin.New("playwright", "Command line utility for Ansible role management")
+	app := kingpin.New("playwright", "CommandConfiguration line utility for Ansible role management")
 	app.Version("0.0.4")
 	app.Author("Eugene Sypachev (@eugene-sy)")
 
-	createCmd := app.Command("create", "Creates roles")
+	createCmd := app.Command(CreateCommand, "Creates roles")
 	createName := createCmd.Arg("name", "Name for role").Required().String()
-	updateCmd := app.Command("update", "Updates roles")
+	updateCmd := app.Command(UpdateCommand, "Updates roles")
 	updateName := updateCmd.Arg("name", "Name for role").Required().String()
-	deleteCmd := app.Command("delete", "Deletes roles")
+	deleteCmd := app.Command(DeleteCommand, "Deletes roles")
 	deleteName := deleteCmd.Arg("name", "Name for role").Required().String()
 	// Folder flags
 	withHandlers := app.Flag("handlers", "Add 'handlers' folder").Bool()
@@ -36,16 +42,20 @@ func main() {
 
 	var err error
 	var success string
+	var cmd commands.ICommand
 
 	switch parsed {
-	case "create":
-		cmd := &commands.CreateCommand{Command: commands.Command{PlaybookName: *createName, WithHandlers: *withHandlers, WithTemplates: *withTemplates, WithFiles: *withFiles, WithVars: *withVars, WithDefaults: *withDefaults, WithMeta: *withMeta, All: *all}}
+	case CreateCommand:
+		commandConfiguration := commands.CommandConfiguration{PlaybookName: *createName, WithHandlers: *withHandlers, WithTemplates: *withTemplates, WithFiles: *withFiles, WithVars: *withVars, WithDefaults: *withDefaults, WithMeta: *withMeta, All: *all}
+		cmd = &commands.CreateCommand{CommandConfiguration: commandConfiguration}
 		success, err = cmd.Execute()
-	case "update":
-		cmd := &commands.UpdateCommand{Command: commands.Command{PlaybookName: *updateName, WithHandlers: *withHandlers, WithTemplates: *withTemplates, WithFiles: *withFiles, WithVars: *withVars, WithDefaults: *withDefaults, WithMeta: *withMeta, All: *all}}
+	case UpdateCommand:
+		commandConfiguration := commands.CommandConfiguration{PlaybookName: *updateName, WithHandlers: *withHandlers, WithTemplates: *withTemplates, WithFiles: *withFiles, WithVars: *withVars, WithDefaults: *withDefaults, WithMeta: *withMeta, All: *all}
+		cmd = &commands.UpdateCommand{CommandConfiguration: commandConfiguration}
 		success, err = cmd.Execute()
-	case "delete":
-		cmd := &commands.DeleteCommand{Command: commands.Command{PlaybookName: *deleteName, WithHandlers: *withHandlers, WithTemplates: *withTemplates, WithFiles: *withFiles, WithVars: *withVars, WithDefaults: *withDefaults, WithMeta: *withMeta, All: *all}}
+	case DeleteCommand:
+		commandConfiguration := commands.CommandConfiguration{PlaybookName: *deleteName, WithHandlers: *withHandlers, WithTemplates: *withTemplates, WithFiles: *withFiles, WithVars: *withVars, WithDefaults: *withDefaults, WithMeta: *withMeta, All: *all}
+		cmd = &commands.DeleteCommand{CommandConfiguration: commandConfiguration}
 		success, err = cmd.Execute()
 	default:
 		err = fmt.Errorf("nothing was called, check --help command")

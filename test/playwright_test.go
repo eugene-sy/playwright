@@ -234,7 +234,7 @@ func TestDelete(t *testing.T) {
 //		t.Run(fmt.Sprintf("TestDeleteWithParams--%s", param), func(t *testing.T) {
 //			roleName := randomRoleName()
 //			deleteParam := fmt.Sprintf("--%s", param)
-//			cmd := exec.Command(binary, createCommand, roleName, deleteParam)
+//			cmd := exec.CommandConfiguration(binary, createCommand, roleName, deleteParam)
 //			cmd.Dir = testFolder
 //			out, err := cmd.CombinedOutput()
 //
@@ -244,7 +244,7 @@ func TestDelete(t *testing.T) {
 //				t.Error("'playwright ", cmd, "' was expected to succeed, but it failed with output: ", err.Error())
 //			}
 //
-//			cmd = exec.Command(binary, deleteCommand, roleName, deleteParam)
+//			cmd = exec.CommandConfiguration(binary, deleteCommand, roleName, deleteParam)
 //			cmd.Dir = testFolder
 //			out, err = cmd.CombinedOutput()
 //

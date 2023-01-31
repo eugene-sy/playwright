@@ -13,7 +13,7 @@ import (
 // with requested folders and main.yml files where applicable
 // main.yml file is created with yaml document separator in the beginning
 type UpdateCommand struct {
-	Command
+	CommandConfiguration
 }
 
 // UpdateCommand.Execute runs the requested filesystem tree updates
@@ -26,7 +26,7 @@ func (command *UpdateCommand) Execute() (success string, err error) {
 		return "", err
 	}
 
-	return updatePlaybookStructure(rolesPath, command.Command.PlaybookName, folders)
+	return updatePlaybookStructure(rolesPath, command.CommandConfiguration.PlaybookName, folders)
 }
 
 func updatePlaybookStructure(rolesPath string, name string, folders []string) (success string, err error) {
