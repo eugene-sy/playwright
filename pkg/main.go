@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/eugene-sy/playwright/pkg/utils"
 	"gopkg.in/alecthomas/kingpin.v2"
 	"os"
@@ -48,18 +47,16 @@ func main() {
 	case CreateCommand:
 		commandConfiguration := commands.CommandConfiguration{PlaybookName: *createName, WithHandlers: *withHandlers, WithTemplates: *withTemplates, WithFiles: *withFiles, WithVars: *withVars, WithDefaults: *withDefaults, WithMeta: *withMeta, All: *all}
 		cmd = &commands.CreateCommand{CommandConfiguration: commandConfiguration}
-		success, err = cmd.Execute()
 	case UpdateCommand:
 		commandConfiguration := commands.CommandConfiguration{PlaybookName: *updateName, WithHandlers: *withHandlers, WithTemplates: *withTemplates, WithFiles: *withFiles, WithVars: *withVars, WithDefaults: *withDefaults, WithMeta: *withMeta, All: *all}
 		cmd = &commands.UpdateCommand{CommandConfiguration: commandConfiguration}
-		success, err = cmd.Execute()
 	case DeleteCommand:
 		commandConfiguration := commands.CommandConfiguration{PlaybookName: *deleteName, WithHandlers: *withHandlers, WithTemplates: *withTemplates, WithFiles: *withFiles, WithVars: *withVars, WithDefaults: *withDefaults, WithMeta: *withMeta, All: *all}
 		cmd = &commands.DeleteCommand{CommandConfiguration: commandConfiguration}
-		success, err = cmd.Execute()
 	default:
-		err = fmt.Errorf("nothing was called, check --help command")
+		cmd = &commands.NoOpCommand{}
 	}
+	success, err = cmd.Execute()
 
 	if err == nil {
 		logger.LogSuccess(success)
