@@ -2,9 +2,9 @@ version: 2.1
 
 jobs:
   build:
-    working_directory: ~/acu
+    working_directory: ~/app
     docker:
-      - image: cimg/go:1.17.6
+      - image: cimg/go:1.19.2
 
     steps:
       - checkout
@@ -38,6 +38,6 @@ jobs:
           command: make it
 
 workflows:
-  sample:
+  buildAndTest:
     jobs:
       - build

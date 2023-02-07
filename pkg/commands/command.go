@@ -11,9 +11,8 @@ import (
 	"github.com/eugene-sy/playwright/pkg/utils"
 )
 
-// Command represents user action with parameters
-type Command struct {
-	PlaybookName  string
+// CommandConfiguration represents user action with parameters
+type CommandConfiguration struct {
 	WithHandlers  bool
 	WithTemplates bool
 	WithFiles     bool
@@ -39,25 +38,25 @@ const (
 
 // SelectFolders returns an array of folder names
 // names are selected when relevant flag in command structure is set to TRUE
-func (command *Command) SelectFolders() []string {
+func (cc *CommandConfiguration) SelectFolders() []string {
 	result := []string{"tasks"}
 
-	if command.WithHandlers {
+	if cc.WithHandlers {
 		result = append(result, "handlers")
 	}
-	if command.WithTemplates {
+	if cc.WithTemplates {
 		result = append(result, "templates")
 	}
-	if command.WithFiles {
+	if cc.WithFiles {
 		result = append(result, "files")
 	}
-	if command.WithVars {
+	if cc.WithVars {
 		result = append(result, "vars")
 	}
-	if command.WithDefaults {
+	if cc.WithDefaults {
 		result = append(result, "defaults")
 	}
-	if command.WithMeta {
+	if cc.WithMeta {
 		result = append(result, "meta")
 	}
 
@@ -68,19 +67,19 @@ func (command *Command) SelectFolders() []string {
 // - from ANSIBLE_ROLES_PATH variable
 // - from ansible configuration file if it is set
 // - otherwise returns current directory followed by 'roles'
-func (command *Command) ReadRolesPath() (rolesPath string, err error) {
+func (cc *CommandConfiguration) ReadRolesPath() (rolesPath string, err error) {
 	envRolesPath := os.Getenv(AnsibleRolesPath)
 
 	if envRolesPath != "" {
 		return envRolesPath, nil
 	}
 
-	return command.readRolesPathFromConfig()
+	return cc.readRolesPathFromConfig()
 }
 
 // readRolesPathFromConfig - reads roles path from ansible config file
-func (command *Command) readRolesPathFromConfig() (rolesPath string, err error) {
-	path, err := command.ansibleConfigPath()
+func (cc *CommandConfiguration) readRolesPathFromConfig() (rolesPath string, err error) {
+	path, err := cc.ansibleConfigPath()
 	if err != nil {
 		return "", errors.New("cannot find Ansible configuration file")
 	}
@@ -136,7 +135,7 @@ func (command *Command) readRolesPathFromConfig() (rolesPath string, err error) 
 // in current folder
 // in OS default location
 // returns location if found, error otherwise
-func (command *Command) ansibleConfigPath() (path string, err error) {
+func (cc *CommandConfiguration) ansibleConfigPath() (path string, err error) {
 	envPath := os.Getenv(AnsibleConfigVar)
 
 	if envPath != "" {
@@ -159,7 +158,7 @@ func (command *Command) ansibleConfigPath() (path string, err error) {
 }
 
 // availableRolesPath parses roles_path string into a set of roles paths
-// roles_path='' is parsed into empty array
+// roles_path=” is parsed into empty array
 // roles_path=/something is parsed into array with one element '/something'
 // roles_path=/something:/something-else is parsed into array of strings delimited by a ':'
 func availableRolesPath(rolesPaths string) []string {

@@ -72,7 +72,6 @@ Colored output can be disabled using multiple methods:
 To build `playwright` you need
 
 - GoLang installed and `$GOPATH` set
-- `dep` to install dependencies
 
 To build and install run next command:
 
