@@ -14,6 +14,7 @@ import (
 // - removes the parts of the role, except the tasks folder and main.yml in it
 type DeleteCommand struct {
 	CommandConfiguration
+	PlaybookName string
 }
 
 // DeleteCommand.Execute runs the requested filesystem tree updates, deleting requested parts of it
@@ -25,7 +26,7 @@ func (command *DeleteCommand) Execute() (success string, err error) {
 		return "", err
 	}
 
-	return deletePlaybookStructure(rolesPath, command.CommandConfiguration.PlaybookName, folders)
+	return deletePlaybookStructure(rolesPath, command.PlaybookName, folders)
 }
 
 func deletePlaybookStructure(rolesPath string, name string, folders []string) (success string, err error) {

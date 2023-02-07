@@ -13,7 +13,6 @@ import (
 
 // CommandConfiguration represents user action with parameters
 type CommandConfiguration struct {
-	PlaybookName  string
 	WithHandlers  bool
 	WithTemplates bool
 	WithFiles     bool

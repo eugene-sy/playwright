@@ -42,17 +42,23 @@ func main() {
 	var err error
 	var success string
 	var cmd commands.ICommand
+	commandConfiguration := commands.CommandConfiguration{
+		WithHandlers:  *withHandlers,
+		WithTemplates: *withTemplates,
+		WithFiles:     *withFiles,
+		WithVars:      *withVars,
+		WithDefaults:  *withDefaults,
+		WithMeta:      *withMeta,
+		All:           *all,
+	}
 
 	switch parsed {
 	case CreateCommand:
-		commandConfiguration := commands.CommandConfiguration{PlaybookName: *createName, WithHandlers: *withHandlers, WithTemplates: *withTemplates, WithFiles: *withFiles, WithVars: *withVars, WithDefaults: *withDefaults, WithMeta: *withMeta, All: *all}
-		cmd = &commands.CreateCommand{CommandConfiguration: commandConfiguration}
+		cmd = &commands.CreateCommand{CommandConfiguration: commandConfiguration, PlaybookName: *createName}
 	case UpdateCommand:
-		commandConfiguration := commands.CommandConfiguration{PlaybookName: *updateName, WithHandlers: *withHandlers, WithTemplates: *withTemplates, WithFiles: *withFiles, WithVars: *withVars, WithDefaults: *withDefaults, WithMeta: *withMeta, All: *all}
-		cmd = &commands.UpdateCommand{CommandConfiguration: commandConfiguration}
+		cmd = &commands.UpdateCommand{CommandConfiguration: commandConfiguration, PlaybookName: *updateName}
 	case DeleteCommand:
-		commandConfiguration := commands.CommandConfiguration{PlaybookName: *deleteName, WithHandlers: *withHandlers, WithTemplates: *withTemplates, WithFiles: *withFiles, WithVars: *withVars, WithDefaults: *withDefaults, WithMeta: *withMeta, All: *all}
-		cmd = &commands.DeleteCommand{CommandConfiguration: commandConfiguration}
+		cmd = &commands.DeleteCommand{CommandConfiguration: commandConfiguration, PlaybookName: *deleteName}
 	default:
 		cmd = &commands.NoOpCommand{}
 	}
