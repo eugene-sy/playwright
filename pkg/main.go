@@ -16,7 +16,7 @@ const (
 )
 
 func main() {
-	app := kingpin.New("playwright", "CommandConfiguration line utility for Ansible role management")
+	app := kingpin.New("playwright", "Command line utility for Ansible role management")
 	app.Version("0.0.4")
 	app.Author("Eugene Sypachev (@eugene-sy)")
 
